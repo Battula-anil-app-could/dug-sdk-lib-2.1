@@ -69,7 +69,7 @@ pub fn generate_proxy_method_sig(
 pub fn generate_proxy_endpoint(m: &Method, endpoint_name: String) -> proc_macro2::TokenStream {
     let mut token_count = 0;
     let mut token_expr =
-        quote! { dharitri_sc::types::EgldOrDctTokenIdentifier::<Self::Api>::moa() };
+        quote! { dharitri_sc::types::MoaOrDctTokenIdentifier::<Self::Api>::moa() };
     let mut nonce_count = 0;
     let mut nonce_expr = quote! { 0u64 };
     let mut payment_count = 0;
@@ -133,18 +133,18 @@ pub fn generate_proxy_endpoint(m: &Method, endpoint_name: String) -> proc_macro2
         assert!(multi_count == 0, "#[payment_multi] cannot coexist with any other payment annotation in the same endpoint");
 
         if token_count == 0 && nonce_count == 0 {
-            contract_call_type = quote! { dharitri_sc::types::ContractCallWithEgld };
+            contract_call_type = quote! { dharitri_sc::types::ContractCallWithMoa };
             contract_call_init = quote! {
-                let mut ___contract_call___ = dharitri_sc::types::ContractCallWithEgld::new(
+                let mut ___contract_call___ = dharitri_sc::types::ContractCallWithMoa::new(
                     ___address___,
                     #endpoint_name,
                     #payment_expr,
                 );
             };
         } else {
-            contract_call_type = quote! { dharitri_sc::types::ContractCallWithEgldOrSingleDct };
+            contract_call_type = quote! { dharitri_sc::types::ContractCallWithMoaOrSingleDct };
             contract_call_init = quote! {
-                let mut ___contract_call___ = dharitri_sc::types::ContractCallWithEgldOrSingleDct::new(
+                let mut ___contract_call___ = dharitri_sc::types::ContractCallWithMoaOrSingleDct::new(
                     ___address___,
                     #endpoint_name,
                     #token_expr,

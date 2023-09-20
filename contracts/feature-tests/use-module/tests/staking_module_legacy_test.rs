@@ -1,6 +1,6 @@
 #![allow(deprecated)] // TODO: migrate tests
 
-use dharitri_sc::types::{EgldOrDctTokenIdentifier, ManagedVec};
+use dharitri_sc::types::{MoaOrDctTokenIdentifier, ManagedVec};
 use dharitri_sc_modules::staking::StakingModule;
 use dharitri_sc_scenario::{
     managed_address, managed_biguint, managed_token_id, rust_biguint,
@@ -44,7 +44,7 @@ fn staking_module_test() {
             whitelist.push(managed_address!(&carol));
 
             sc.init_staking_module(
-                &EgldOrDctTokenIdentifier::dct(managed_token_id!(STAKING_TOKEN_ID)),
+                &MoaOrDctTokenIdentifier::dct(managed_token_id!(STAKING_TOKEN_ID)),
                 &managed_biguint!(REQUIRED_STAKE_AMOUNT),
                 &managed_biguint!(SLASH_AMOUNT),
                 QUORUM,

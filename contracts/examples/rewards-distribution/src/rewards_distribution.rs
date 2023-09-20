@@ -241,7 +241,7 @@ pub trait RewardsDistribution:
         &self,
         raffle_id_start: u64,
         raffle_id_end: u64,
-        reward_tokens: MultiValueEncoded<MultiValue2<EgldOrDctTokenIdentifier, u64>>,
+        reward_tokens: MultiValueEncoded<MultiValue2<MoaOrDctTokenIdentifier, u64>>,
     ) {
         let nfts = self.call_value().all_dct_transfers();
         self.validate_nft_payments(&nfts);
@@ -277,7 +277,7 @@ pub trait RewardsDistribution:
         &self,
         raffle_id_start: u64,
         raffle_id_end: u64,
-        reward_token_id: &EgldOrDctTokenIdentifier,
+        reward_token_id: &MoaOrDctTokenIdentifier,
         reward_token_nonce: u64,
         nfts: &ManagedVec<DctTokenPayment>,
     ) -> (BigUint, Option<DctTokenPayment>) {
@@ -314,7 +314,7 @@ pub trait RewardsDistribution:
     fn try_claim(
         &self,
         raffle_id: u64,
-        reward_token_id: &EgldOrDctTokenIdentifier,
+        reward_token_id: &MoaOrDctTokenIdentifier,
         reward_token_nonce: u64,
         nft: &DctTokenPayment,
     ) -> Result<(), ()> {
@@ -337,7 +337,7 @@ pub trait RewardsDistribution:
     fn compute_claimable_amount(
         &self,
         raffle_id: u64,
-        reward_token_id: &EgldOrDctTokenIdentifier,
+        reward_token_id: &MoaOrDctTokenIdentifier,
         reward_token_nonce: u64,
         nft_nonce: u64,
     ) -> BigUint {
@@ -376,7 +376,7 @@ pub trait RewardsDistribution:
     fn royalties(
         &self,
         raffle_id: u64,
-        reward_token_id: &EgldOrDctTokenIdentifier,
+        reward_token_id: &MoaOrDctTokenIdentifier,
         reward_token_nonce: u64,
     ) -> SingleValueMapper<BigUint>;
 
@@ -389,7 +389,7 @@ pub trait RewardsDistribution:
     fn was_claimed(
         &self,
         raffle_id: u64,
-        reward_token_id: &EgldOrDctTokenIdentifier,
+        reward_token_id: &MoaOrDctTokenIdentifier,
         reward_token_nonce: u64,
         nft_nonce: u64,
     ) -> SingleValueMapper<bool>;

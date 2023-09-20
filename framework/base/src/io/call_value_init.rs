@@ -6,7 +6,7 @@ use crate::{
     contract_base::CallValueWrapper,
     err_msg,
     types::{
-        BigUint, EgldOrDctTokenIdentifier, DctTokenPayment, ManagedRef, ManagedType, ManagedVec,
+        BigUint, MoaOrDctTokenIdentifier, DctTokenPayment, ManagedRef, ManagedType, ManagedVec,
     },
 };
 
@@ -70,7 +70,7 @@ where
 }
 
 /// Initializes an argument annotated with `#[payment_token]`.
-pub fn arg_payment_token<A>() -> EgldOrDctTokenIdentifier<A>
+pub fn arg_payment_token<A>() -> MoaOrDctTokenIdentifier<A>
 where
     A: CallValueApi + ManagedTypeApi,
 {

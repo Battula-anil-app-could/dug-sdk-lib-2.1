@@ -13,7 +13,7 @@ static NOT_ENOUGH_STAKE_ERR_MSG: &[u8] = b"Not enough stake";
 pub trait StakingModule {
     fn init_staking_module(
         &self,
-        staking_token: &EgldOrDctTokenIdentifier,
+        staking_token: &MoaOrDctTokenIdentifier,
         staking_amount: &BigUint,
         slash_amount: &BigUint,
         slash_quorum: usize,
@@ -146,7 +146,7 @@ pub trait StakingModule {
     }
 
     #[storage_mapper("staking_module:stakingToken")]
-    fn staking_token(&self) -> SingleValueMapper<EgldOrDctTokenIdentifier>;
+    fn staking_token(&self) -> SingleValueMapper<MoaOrDctTokenIdentifier>;
 
     #[storage_mapper("staking_module:requiredStakeAmount")]
     fn required_stake_amount(&self) -> SingleValueMapper<BigUint>;

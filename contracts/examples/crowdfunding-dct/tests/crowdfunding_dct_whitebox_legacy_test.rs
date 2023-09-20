@@ -1,7 +1,7 @@
 #![allow(deprecated)] // TODO: migrate tests
 
 use crowdfunding_dct::*;
-use dharitri_sc::types::{Address, EgldOrDctTokenIdentifier};
+use dharitri_sc::types::{Address, MoaOrDctTokenIdentifier};
 use dharitri_sc_scenario::{
     managed_address, managed_biguint, managed_token_id, rust_biguint, testing_framework::*,
     DebugApi,
@@ -52,7 +52,7 @@ where
             sc.init(
                 target,
                 CF_DEADLINE,
-                EgldOrDctTokenIdentifier::dct(token_id),
+                MoaOrDctTokenIdentifier::dct(token_id),
             );
         })
         .assert_ok();

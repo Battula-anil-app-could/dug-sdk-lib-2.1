@@ -94,11 +94,11 @@ pub trait OwnerEndpointsModule: storage::StorageModule + events::EventsModule {
     {
         let (identifier, nonce, amount) = self.call_value().single_dct().into_tuple();
         let caller = self.blockchain().get_caller();
-        let mut set_payment = EgldOrDctTokenIdentifier::moa();
+        let mut set_payment = MoaOrDctTokenIdentifier::moa();
 
         if self.bonding_curve(&identifier).is_empty() {
             match payment_token {
-                OptionalValue::Some(token) => set_payment = EgldOrDctTokenIdentifier::dct(token),
+                OptionalValue::Some(token) => set_payment = MoaOrDctTokenIdentifier::dct(token),
                 OptionalValue::None => {
                     sc_panic!("Expected provided accepted_payment for the token");
                 },
@@ -189,7 +189,7 @@ pub trait OwnerEndpointsModule: storage::StorageModule + events::EventsModule {
         &self,
         identifier: &TokenIdentifier,
         amount: BigUint,
-        payment_token_identifier: EgldOrDctTokenIdentifier,
+        payment_token_identifier: MoaOrDctTokenIdentifier,
     ) where
         T: CurveFunction<Self::Api>
             + TopEncode
@@ -211,7 +211,7 @@ pub trait OwnerEndpointsModule: storage::StorageModule + events::EventsModule {
                 available_supply: amount.clone(),
                 balance: amount,
             };
-            payment = EgldOrDctTokenPayment::new(payment_token_identifier, 0, BigUint::zero());
+            payment = MoaOrDctTokenPayment::new(payment_token_identifier, 0, BigUint::zero());
             sell_availability = false;
         } else {
             let bonding_curve: BondingCurve<Self::Api, T> =

@@ -3,7 +3,7 @@
 dharitri_sc::imports!();
 
 #[dharitri_sc::contract]
-pub trait EgldDctSwap: dharitri_sc_modules::pause::PauseModule {
+pub trait MoaDctSwap: dharitri_sc_modules::pause::PauseModule {
     #[init]
     fn init(&self, wrapped_moa_token_id: TokenIdentifier) {
         self.wrapped_moa_token_id().set(&wrapped_moa_token_id);
@@ -12,7 +12,7 @@ pub trait EgldDctSwap: dharitri_sc_modules::pause::PauseModule {
     // endpoints
 
     #[payable("MOA")]
-    #[endpoint(wrapEgld)]
+    #[endpoint(wrapMoa)]
     fn wrap_moa(&self) -> DctTokenPayment<Self::Api> {
         self.require_not_paused();
 
@@ -31,7 +31,7 @@ pub trait EgldDctSwap: dharitri_sc_modules::pause::PauseModule {
     }
 
     #[payable("*")]
-    #[endpoint(unwrapEgld)]
+    #[endpoint(unwrapMoa)]
     fn unwrap_moa(&self) {
         self.require_not_paused();
 
@@ -53,13 +53,13 @@ pub trait EgldDctSwap: dharitri_sc_modules::pause::PauseModule {
         self.send().direct_moa(&caller, &payment_amount);
     }
 
-    #[view(getLockedEgldBalance)]
+    #[view(getLockedMoaBalance)]
     fn get_locked_moa_balance(&self) -> BigUint {
         self.blockchain()
-            .get_sc_balance(&EgldOrDctTokenIdentifier::moa(), 0)
+            .get_sc_balance(&MoaOrDctTokenIdentifier::moa(), 0)
     }
 
-    #[view(getWrappedEgldTokenId)]
-    #[storage_mapper("wrappedEgldTokenId")]
+    #[view(getWrappedMoaTokenId)]
+    #[storage_mapper("wrappedMoaTokenId")]
     fn wrapped_moa_token_id(&self) -> SingleValueMapper<TokenIdentifier>;
 }

@@ -8,7 +8,7 @@ use crate::{
     types::{BigUint, DctTokenPayment, ManagedBuffer, ManagedBufferCachedBuilder, ManagedVec},
 };
 
-use super::{AsyncCall, ContractCallNoPayment, ContractCallWithEgld};
+use super::{AsyncCall, ContractCallNoPayment, ContractCallWithMoa};
 
 /// Using max u64 to represent maximum possible gas,
 /// so that the value zero is not reserved and can be specified explicitly.
@@ -18,7 +18,7 @@ pub(super) const UNSPECIFIED_GAS_LIMIT: u64 = u64::MAX;
 /// In case of `transfer_execute`, we leave by default a little gas for the calling transaction to finish.
 pub(super) const TRANSFER_EXECUTE_DEFAULT_LEFTOVER: u64 = 100_000;
 
-impl<SA, OriginalResult> ContractCallWithEgld<SA, OriginalResult>
+impl<SA, OriginalResult> ContractCallWithMoa<SA, OriginalResult>
 where
     SA: CallTypeApi + 'static,
 {

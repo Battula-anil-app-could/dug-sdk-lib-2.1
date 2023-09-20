@@ -2,7 +2,7 @@
 
 use dharitri_sc::{
     codec::multi_types::MultiValue2,
-    types::{BigUint, EgldOrDctTokenIdentifier, MultiValueEncoded, OperationCompletionStatus},
+    types::{BigUint, MoaOrDctTokenIdentifier, MultiValueEncoded, OperationCompletionStatus},
 };
 use dharitri_sc_scenario::{
     managed_token_id, rust_biguint,
@@ -113,7 +113,7 @@ fn test_raffle_and_claim() {
             for nonce in 1u64..=nft_count {
                 let amount = sc.compute_claimable_amount(
                     raffle_id,
-                    &EgldOrDctTokenIdentifier::moa(),
+                    &MoaOrDctTokenIdentifier::moa(),
                     0,
                     nonce,
                 );
@@ -169,7 +169,7 @@ fn test_raffle_and_claim() {
             for (nonce, expected_reward) in std::iter::zip(nft_nonces, expected_rewards) {
                 let rewards = sc.compute_claimable_amount(
                     raffle_id,
-                    &EgldOrDctTokenIdentifier::moa(),
+                    &MoaOrDctTokenIdentifier::moa(),
                     0,
                     nonce,
                 );
@@ -181,15 +181,15 @@ fn test_raffle_and_claim() {
             let reward_id_range_end = 0;
             let mut reward_tokens: MultiValueEncoded<
                 DebugApi,
-                MultiValue2<EgldOrDctTokenIdentifier<DebugApi>, u64>,
+                MultiValue2<MoaOrDctTokenIdentifier<DebugApi>, u64>,
             > = MultiValueEncoded::new();
-            reward_tokens.push((EgldOrDctTokenIdentifier::moa(), 0).into());
+            reward_tokens.push((MoaOrDctTokenIdentifier::moa(), 0).into());
             sc.claim_rewards(reward_id_range_start, reward_id_range_end, reward_tokens);
 
             // check that the flags which mark claimed rewards were set
             for nonce in nft_nonces {
                 let was_claimed = sc
-                    .was_claimed(raffle_id, &EgldOrDctTokenIdentifier::moa(), 0, nonce)
+                    .was_claimed(raffle_id, &MoaOrDctTokenIdentifier::moa(), 0, nonce)
                     .get();
                 assert!(was_claimed);
             }
@@ -207,9 +207,9 @@ fn test_raffle_and_claim() {
             let reward_id_range_end = 0;
             let mut reward_tokens: MultiValueEncoded<
                 DebugApi,
-                MultiValue2<EgldOrDctTokenIdentifier<DebugApi>, u64>,
+                MultiValue2<MoaOrDctTokenIdentifier<DebugApi>, u64>,
             > = MultiValueEncoded::new();
-            reward_tokens.push((EgldOrDctTokenIdentifier::moa(), 0).into());
+            reward_tokens.push((MoaOrDctTokenIdentifier::moa(), 0).into());
             sc.claim_rewards(reward_id_range_start, reward_id_range_end, reward_tokens);
         })
         .assert_ok();

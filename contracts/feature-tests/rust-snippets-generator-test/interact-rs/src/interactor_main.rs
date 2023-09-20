@@ -278,13 +278,13 @@ impl State {
     }
 
     async fn moa_or_dct_payment(&mut self) {
-        let arg = EgldOrDctTokenPayment::new(
-            EgldOrDctTokenIdentifier::dct(&b""[..]),
+        let arg = MoaOrDctTokenPayment::new(
+            MoaOrDctTokenIdentifier::dct(&b""[..]),
             0u64,
             BigUint::from(0u128),
         );
 
-        let response: TypedResponse<EgldOrDctTokenIdentifier<StaticApi>> = self
+        let response: TypedResponse<MoaOrDctTokenIdentifier<StaticApi>> = self
             .interactor
             .sc_call_use_result(
                 ScCallStep::new()

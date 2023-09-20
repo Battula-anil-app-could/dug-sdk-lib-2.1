@@ -5,7 +5,7 @@ dharitri_sc::imports!();
 #[dharitri_sc::contract]
 pub trait SecondContract {
     #[init]
-    fn init(&self, dct_token_identifier: EgldOrDctTokenIdentifier) {
+    fn init(&self, dct_token_identifier: MoaOrDctTokenIdentifier) {
         self.set_contract_dct_token_identifier(&dct_token_identifier);
     }
 
@@ -29,9 +29,9 @@ pub trait SecondContract {
     // storage
 
     #[storage_set("dctTokenName")]
-    fn set_contract_dct_token_identifier(&self, dct_token_identifier: &EgldOrDctTokenIdentifier);
+    fn set_contract_dct_token_identifier(&self, dct_token_identifier: &MoaOrDctTokenIdentifier);
 
     #[view(getdctTokenName)]
     #[storage_get("dctTokenName")]
-    fn get_contract_dct_token_identifier(&self) -> EgldOrDctTokenIdentifier;
+    fn get_contract_dct_token_identifier(&self) -> MoaOrDctTokenIdentifier;
 }

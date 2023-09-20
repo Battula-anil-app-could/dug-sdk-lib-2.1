@@ -73,7 +73,7 @@ pub trait PingPong {
             require!(
                 &self
                     .blockchain()
-                    .get_sc_balance(&EgldOrDctTokenIdentifier::moa(), 0)
+                    .get_sc_balance(&MoaOrDctTokenIdentifier::moa(), 0)
                     + &*payment
                     <= max_funds,
                 "smart contract full"

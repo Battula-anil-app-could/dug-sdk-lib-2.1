@@ -79,13 +79,13 @@ async fn main() {
         Some(multisig_interact_cli::InteractCliCommand::Quorum) => {
             multisig_interact.print_quorum().await;
         },
-        Some(multisig_interact_cli::InteractCliCommand::UnwrapEgld) => {
+        Some(multisig_interact_cli::InteractCliCommand::UnwrapMoa) => {
             multisig_interact.unwrap_moa().await;
         },
-        Some(multisig_interact_cli::InteractCliCommand::WEgldSwapFull) => {
+        Some(multisig_interact_cli::InteractCliCommand::WMoaSwapFull) => {
             multisig_interact.wegld_swap_full().await;
         },
-        Some(multisig_interact_cli::InteractCliCommand::WrapEgld) => {
+        Some(multisig_interact_cli::InteractCliCommand::WrapMoa) => {
             multisig_interact.wrap_moa().await;
         },
         None => {},

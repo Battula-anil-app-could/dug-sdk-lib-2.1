@@ -2,7 +2,7 @@ use crate::{address_h256_to_erdrs, mandos_to_erdrs_address, Interactor};
 use log::info;
 use dharitri_sc_scenario::{
     api::StaticApi,
-    dharitri_sc::types::ContractCallWithEgld,
+    dharitri_sc::types::ContractCallWithMoa,
     scenario::ScenarioRunner,
     scenario_model::{ScCallStep, SetStateStep, TxCall, TxResponse},
 };
@@ -70,7 +70,7 @@ impl Interactor {
     }
 }
 
-fn contract_call_to_tx_data(contract_call: &ContractCallWithEgld<StaticApi, ()>) -> String {
+fn contract_call_to_tx_data(contract_call: &ContractCallWithMoa<StaticApi, ()>) -> String {
     let mut result = String::from_utf8(
         contract_call
             .basic

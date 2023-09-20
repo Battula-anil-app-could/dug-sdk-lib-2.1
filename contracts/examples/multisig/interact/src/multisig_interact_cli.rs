@@ -43,14 +43,14 @@ pub enum InteractCliCommand {
     #[command(name = "quorum", about = "Print quorum")]
     Quorum,
     #[command(name = "unwrap-moa", about = "Unwrap MOA")]
-    UnwrapEgld,
+    UnwrapMoa,
     #[command(
         name = "wegld-swap-full",
         about = "Deploy and swap WEGLD with multisig"
     )]
-    WEgldSwapFull,
+    WMoaSwapFull,
     #[command(name = "wrap-moa", about = "Wrap MOA")]
-    WrapEgld,
+    WrapMoa,
 }
 
 #[derive(Default, Clone, PartialEq, Eq, Debug, Args)]

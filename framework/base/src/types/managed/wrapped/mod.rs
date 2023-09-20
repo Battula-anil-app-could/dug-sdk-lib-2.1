@@ -18,9 +18,9 @@ pub(crate) mod preloaded_managed_buffer;
 mod randomness_source;
 mod token_identifier;
 
-pub use moa_or_dct_token_identifier::EgldOrDctTokenIdentifier;
-pub use moa_or_dct_token_payment::EgldOrDctTokenPayment;
-pub use moa_or_multi_dct_payment::EgldOrMultiDctPayment;
+pub use moa_or_dct_token_identifier::MoaOrDctTokenIdentifier;
+pub use moa_or_dct_token_payment::MoaOrDctTokenPayment;
+pub use moa_or_multi_dct_payment::MoaOrMultiDctPayment;
 pub(crate) use encoded_managed_vec_item::EncodedManagedVecItem;
 pub use dct_token_data::DctTokenData;
 pub use dct_token_payment::DctTokenPayment;

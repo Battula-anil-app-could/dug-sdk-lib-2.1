@@ -20,7 +20,7 @@ pub trait DistributionModule {
 
     fn distribute_funds(
         &self,
-        token_id: &EgldOrDctTokenIdentifier,
+        token_id: &MoaOrDctTokenIdentifier,
         token_nonce: u64,
         total_amount: BigUint,
     ) {

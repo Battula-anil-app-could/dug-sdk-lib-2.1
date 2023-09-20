@@ -220,7 +220,7 @@ pub trait UserEndpointsModule: storage::StorageModule + events::EventsModule {
         &self,
         issued_token: &TokenIdentifier,
         amount: &BigUint,
-    ) -> EgldOrDctTokenIdentifier
+    ) -> MoaOrDctTokenIdentifier
     where
         T: CurveFunction<Self::Api>
             + TopEncode
@@ -247,8 +247,8 @@ pub trait UserEndpointsModule: storage::StorageModule + events::EventsModule {
 
     fn check_given_token(
         &self,
-        accepted_token: &EgldOrDctTokenIdentifier,
-        given_token: &EgldOrDctTokenIdentifier,
+        accepted_token: &MoaOrDctTokenIdentifier,
+        given_token: &MoaOrDctTokenIdentifier,
     ) {
         require!(
             given_token == accepted_token,

@@ -114,7 +114,7 @@ pub trait ForwarderSyncCallModule {
     fn forward_sync_retrieve_funds(
         &self,
         to: ManagedAddress,
-        token: EgldOrDctTokenIdentifier,
+        token: MoaOrDctTokenIdentifier,
         token_nonce: u64,
         amount: BigUint,
     ) {

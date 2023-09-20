@@ -100,10 +100,10 @@ fn init_rust_types_map() -> HashMap<&'static str, RustTypeString> {
         },
     );
     m.insert(
-        "EgldOrDctTokenIdentifier",
+        "MoaOrDctTokenIdentifier",
         RustTypeString {
-            type_name: "EgldOrDctTokenIdentifier".to_string() + STATIC_API_SUFFIX,
-            default_value_expr: "EgldOrDctTokenIdentifier::dct(&b\"\"[..])".to_string(),
+            type_name: "MoaOrDctTokenIdentifier".to_string() + STATIC_API_SUFFIX,
+            default_value_expr: "MoaOrDctTokenIdentifier::dct(&b\"\"[..])".to_string(),
             contains_custom_types: false,
         },
     );
@@ -122,11 +122,11 @@ fn init_rust_types_map() -> HashMap<&'static str, RustTypeString> {
         },
     );
     m.insert(
-        "EgldOrDctTokenPayment",
+        "MoaOrDctTokenPayment",
         RustTypeString {
-            type_name: "EgldOrDctTokenPayment".to_string() + STATIC_API_SUFFIX,
-            default_value_expr: "EgldOrDctTokenPayment::new(
-            EgldOrDctTokenIdentifier::dct(&b\"\"[..]),
+            type_name: "MoaOrDctTokenPayment".to_string() + STATIC_API_SUFFIX,
+            default_value_expr: "MoaOrDctTokenPayment::new(
+            MoaOrDctTokenIdentifier::dct(&b\"\"[..]),
             0u64,
             BigUint::from(0u128),
         )"

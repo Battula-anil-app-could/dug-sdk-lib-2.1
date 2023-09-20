@@ -20,8 +20,8 @@ dharitri_sc_wasm_adapter::endpoints! {
     child
     (
         init => init
-        issueWrappedEgld => issue_wrapped_moa
-        getWrappedEgldTokenIdentifier => wrapped_moa_token_identifier
+        issueWrappedMoa => issue_wrapped_moa
+        getWrappedMoaTokenIdentifier => wrapped_moa_token_identifier
     )
 }
 

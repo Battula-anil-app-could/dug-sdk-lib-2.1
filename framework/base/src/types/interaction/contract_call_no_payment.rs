@@ -5,15 +5,15 @@ use crate::codec::TopEncodeMulti;
 use crate::{
     api::CallTypeApi,
     types::{
-        BigUint, EgldOrDctTokenIdentifier, EgldOrDctTokenPayment, EgldOrMultiDctPayment,
+        BigUint, MoaOrDctTokenIdentifier, MoaOrDctTokenPayment, MoaOrMultiDctPayment,
         DctTokenPayment, ManagedAddress, ManagedBuffer, ManagedVec, TokenIdentifier,
     },
 };
 
 use super::{
-    contract_call_exec::UNSPECIFIED_GAS_LIMIT, contract_call_with_moa::ContractCallWithEgld,
+    contract_call_exec::UNSPECIFIED_GAS_LIMIT, contract_call_with_moa::ContractCallWithMoa,
     contract_call_with_multi_dct::ContractCallWithMultiDct, ContractCall,
-    ContractCallWithAnyPayment, ContractCallWithEgldOrSingleDct, ManagedArgBuffer,
+    ContractCallWithAnyPayment, ContractCallWithMoaOrSingleDct, ManagedArgBuffer,
 };
 
 /// Holds metadata for calling another contract, without payments.
@@ -43,8 +43,8 @@ where
     type OriginalResult = OriginalResult;
 
     #[inline]
-    fn into_normalized(self) -> ContractCallWithEgld<SA, Self::OriginalResult> {
-        ContractCallWithEgld {
+    fn into_normalized(self) -> ContractCallWithMoa<SA, Self::OriginalResult> {
+        ContractCallWithMoa {
             basic: self,
             moa_payment: BigUint::zero(),
         }
@@ -79,8 +79,8 @@ where
     pub fn with_moa_transfer(
         self,
         moa_amount: BigUint<SA>,
-    ) -> ContractCallWithEgld<SA, OriginalResult> {
-        ContractCallWithEgld {
+    ) -> ContractCallWithMoa<SA, OriginalResult> {
+        ContractCallWithMoa {
             basic: self,
             moa_payment: moa_amount,
         }
@@ -130,7 +130,7 @@ where
     #[inline]
     pub fn with_any_payment(
         self,
-        payment: EgldOrMultiDctPayment<SA>,
+        payment: MoaOrMultiDctPayment<SA>,
     ) -> ContractCallWithAnyPayment<SA, OriginalResult> {
         ContractCallWithAnyPayment {
             basic: self,
@@ -139,11 +139,11 @@ where
     }
 
     /// Sets payment to be either MOA or a single DCT transfer, as determined at runtime.
-    pub fn with_moa_or_single_dct_transfer<P: Into<EgldOrDctTokenPayment<SA>>>(
+    pub fn with_moa_or_single_dct_transfer<P: Into<MoaOrDctTokenPayment<SA>>>(
         self,
         payment: P,
-    ) -> ContractCallWithEgldOrSingleDct<SA, OriginalResult> {
-        ContractCallWithEgldOrSingleDct {
+    ) -> ContractCallWithMoaOrSingleDct<SA, OriginalResult> {
+        ContractCallWithMoaOrSingleDct {
             basic: self,
             payment: payment.into(),
         }
@@ -155,10 +155,10 @@ where
     )]
     pub fn with_moa_or_single_dct_token_transfer(
         self,
-        payment_token: EgldOrDctTokenIdentifier<SA>,
+        payment_token: MoaOrDctTokenIdentifier<SA>,
         payment_nonce: u64,
         payment_amount: BigUint<SA>,
-    ) -> ContractCallWithEgldOrSingleDct<SA, OriginalResult> {
+    ) -> ContractCallWithMoaOrSingleDct<SA, OriginalResult> {
         self.with_moa_or_single_dct_transfer((payment_token, payment_nonce, payment_amount))
     }
 }

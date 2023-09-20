@@ -338,7 +338,7 @@ impl MxpySnippetGenerator {
         }
 
         if self.moa_value > num_bigint::BigUint::zero() {
-            cmd_builder.add_numerical_argument(EGLD_VALUE_ARG_NAME, &self.moa_value);
+            cmd_builder.add_numerical_argument(MOA_VALUE_ARG_NAME, &self.moa_value);
         }
 
         cmd_builder.add_numerical_argument(

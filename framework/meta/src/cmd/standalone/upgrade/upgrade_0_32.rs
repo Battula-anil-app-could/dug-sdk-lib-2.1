@@ -17,7 +17,7 @@ fn v_0_32_replace_in_files(sc_crate_path: &Path) {
         "*rs",
         &[Query::substring(
             "TokenIdentifier::moa()",
-            "EgldOrDctTokenIdentifier::moa()",
+            "MoaOrDctTokenIdentifier::moa()",
         )][..],
     );
 }

@@ -14,7 +14,7 @@ use crate as dharitri_sc; // required by the ManagedVecItem derive
 /// Equivalent to a structure of the form
 /// ```
 /// # use dharitri_sc::{api::ManagedTypeApi, types::TokenIdentifier};
-/// enum EgldOrDctTokenIdentifier<M: ManagedTypeApi> {
+/// enum MoaOrDctTokenIdentifier<M: ManagedTypeApi> {
 ///     Moa,
 ///     Dct(TokenIdentifier<M>),
 /// }
@@ -25,14 +25,14 @@ use crate as dharitri_sc; // required by the ManagedVecItem derive
 /// MOA a special, invalid token identifier handle. This way we can fit it inside a single i32 in memory.
 #[repr(transparent)]
 #[derive(ManagedVecItem, Clone)]
-pub struct EgldOrDctTokenIdentifier<M: ManagedTypeApi> {
+pub struct MoaOrDctTokenIdentifier<M: ManagedTypeApi> {
     data: ManagedOption<M, TokenIdentifier<M>>,
 }
 
-impl<M: ManagedTypeApi> EgldOrDctTokenIdentifier<M> {
+impl<M: ManagedTypeApi> MoaOrDctTokenIdentifier<M> {
     /// This special representation is interpreted as the MOA token.
     #[allow(clippy::needless_borrow)] // clippy is wrog here, there is no other way
-    pub const EGLD_REPRESENTATION: &'static [u8; 3] = &b"MOA";
+    pub const MOA_REPRESENTATION: &'static [u8; 3] = &b"MOA";
 
     /// New instance of the special MOA token representation.
     #[inline]
@@ -61,7 +61,7 @@ impl<M: ManagedTypeApi> EgldOrDctTokenIdentifier<M> {
     }
 
     pub fn parse(data: ManagedBuffer<M>) -> Self {
-        if data == Self::EGLD_REPRESENTATION {
+        if data == Self::MOA_REPRESENTATION {
             Self::moa()
         } else {
             Self::dct(TokenIdentifier::from(data))
@@ -81,7 +81,7 @@ impl<M: ManagedTypeApi> EgldOrDctTokenIdentifier<M> {
     #[inline]
     pub fn into_name(self) -> ManagedBuffer<M> {
         self.map_or_else(
-            || ManagedBuffer::from(&Self::EGLD_REPRESENTATION[..]),
+            || ManagedBuffer::from(&Self::MOA_REPRESENTATION[..]),
             |token_identifier| token_identifier.into_managed_buffer(),
         )
     }
@@ -129,16 +129,16 @@ impl<M: ManagedTypeApi> EgldOrDctTokenIdentifier<M> {
     }
 }
 
-impl<M: ManagedTypeApi> PartialEq for EgldOrDctTokenIdentifier<M> {
+impl<M: ManagedTypeApi> PartialEq for MoaOrDctTokenIdentifier<M> {
     #[inline]
     fn eq(&self, other: &Self) -> bool {
         self.data == other.data
     }
 }
 
-impl<M: ManagedTypeApi> Eq for EgldOrDctTokenIdentifier<M> {}
+impl<M: ManagedTypeApi> Eq for MoaOrDctTokenIdentifier<M> {}
 
-impl<M: ManagedTypeApi> PartialEq<TokenIdentifier<M>> for EgldOrDctTokenIdentifier<M> {
+impl<M: ManagedTypeApi> PartialEq<TokenIdentifier<M>> for MoaOrDctTokenIdentifier<M> {
     #[inline]
     fn eq(&self, other: &TokenIdentifier<M>) -> bool {
         self.map_ref_or_else(
@@ -148,7 +148,7 @@ impl<M: ManagedTypeApi> PartialEq<TokenIdentifier<M>> for EgldOrDctTokenIdentifi
     }
 }
 
-impl<M: ManagedTypeApi> NestedEncode for EgldOrDctTokenIdentifier<M> {
+impl<M: ManagedTypeApi> NestedEncode for MoaOrDctTokenIdentifier<M> {
     #[inline]
     fn dep_encode_or_handle_err<O, H>(&self, dest: &mut O, h: H) -> Result<(), H::HandledErr>
     where
@@ -158,12 +158,12 @@ impl<M: ManagedTypeApi> NestedEncode for EgldOrDctTokenIdentifier<M> {
         if let Some(token_identifier) = self.data.as_option() {
             token_identifier.dep_encode_or_handle_err(dest, h)
         } else {
-            (&Self::EGLD_REPRESENTATION[..]).dep_encode_or_handle_err(dest, h)
+            (&Self::MOA_REPRESENTATION[..]).dep_encode_or_handle_err(dest, h)
         }
     }
 }
 
-impl<M: ManagedTypeApi> TopEncode for EgldOrDctTokenIdentifier<M> {
+impl<M: ManagedTypeApi> TopEncode for MoaOrDctTokenIdentifier<M> {
     #[inline]
     fn top_encode_or_handle_err<O, H>(&self, output: O, h: H) -> Result<(), H::HandledErr>
     where
@@ -173,12 +173,12 @@ impl<M: ManagedTypeApi> TopEncode for EgldOrDctTokenIdentifier<M> {
         if let Some(token_identifier) = self.data.as_option() {
             token_identifier.top_encode_or_handle_err(output, h)
         } else {
-            (&Self::EGLD_REPRESENTATION[..]).top_encode_or_handle_err(output, h)
+            (&Self::MOA_REPRESENTATION[..]).top_encode_or_handle_err(output, h)
         }
     }
 }
 
-impl<M: ManagedTypeApi> NestedDecode for EgldOrDctTokenIdentifier<M> {
+impl<M: ManagedTypeApi> NestedDecode for MoaOrDctTokenIdentifier<M> {
     fn dep_decode_or_handle_err<I, H>(input: &mut I, h: H) -> Result<Self, H::HandledErr>
     where
         I: NestedDecodeInput,
@@ -190,7 +190,7 @@ impl<M: ManagedTypeApi> NestedDecode for EgldOrDctTokenIdentifier<M> {
     }
 }
 
-impl<M: ManagedTypeApi> TopDecode for EgldOrDctTokenIdentifier<M> {
+impl<M: ManagedTypeApi> TopDecode for MoaOrDctTokenIdentifier<M> {
     fn top_decode_or_handle_err<I, H>(input: I, h: H) -> Result<Self, H::HandledErr>
     where
         I: TopDecodeInput,
@@ -202,47 +202,47 @@ impl<M: ManagedTypeApi> TopDecode for EgldOrDctTokenIdentifier<M> {
     }
 }
 
-impl<M> CodecFromSelf for EgldOrDctTokenIdentifier<M> where M: ManagedTypeApi {}
+impl<M> CodecFromSelf for MoaOrDctTokenIdentifier<M> where M: ManagedTypeApi {}
 
-impl<M> CodecFrom<TokenIdentifier<M>> for EgldOrDctTokenIdentifier<M> where M: ManagedTypeApi {}
-impl<M> CodecFrom<&TokenIdentifier<M>> for EgldOrDctTokenIdentifier<M> where M: ManagedTypeApi {}
+impl<M> CodecFrom<TokenIdentifier<M>> for MoaOrDctTokenIdentifier<M> where M: ManagedTypeApi {}
+impl<M> CodecFrom<&TokenIdentifier<M>> for MoaOrDctTokenIdentifier<M> where M: ManagedTypeApi {}
 
-impl<M> CodecFrom<&[u8]> for EgldOrDctTokenIdentifier<M> where M: ManagedTypeApi {}
-impl<M> CodecFrom<&str> for EgldOrDctTokenIdentifier<M> where M: ManagedTypeApi {}
+impl<M> CodecFrom<&[u8]> for MoaOrDctTokenIdentifier<M> where M: ManagedTypeApi {}
+impl<M> CodecFrom<&str> for MoaOrDctTokenIdentifier<M> where M: ManagedTypeApi {}
 
-impl<M: ManagedTypeApi> TypeAbi for EgldOrDctTokenIdentifier<M> {
+impl<M: ManagedTypeApi> TypeAbi for MoaOrDctTokenIdentifier<M> {
     fn type_name() -> TypeName {
-        "EgldOrDctTokenIdentifier".into()
+        "MoaOrDctTokenIdentifier".into()
     }
 }
 
-impl<M: ManagedTypeApi> SCDisplay for EgldOrDctTokenIdentifier<M> {
+impl<M: ManagedTypeApi> SCDisplay for MoaOrDctTokenIdentifier<M> {
     fn fmt<F: FormatByteReceiver>(&self, f: &mut F) {
         if let Some(token_identifier) = self.data.as_option() {
             f.append_managed_buffer(&ManagedBuffer::from_handle(
                 token_identifier.get_handle().cast_or_signal_error::<M, _>(),
             ));
         } else {
-            f.append_bytes(Self::EGLD_REPRESENTATION);
+            f.append_bytes(Self::MOA_REPRESENTATION);
         }
     }
 }
 
-const EGLD_REPRESENTATION_HEX: &[u8] = b"45474C44";
+const MOA_REPRESENTATION_HEX: &[u8] = b"45474C44";
 
-impl<M: ManagedTypeApi> SCLowerHex for EgldOrDctTokenIdentifier<M> {
+impl<M: ManagedTypeApi> SCLowerHex for MoaOrDctTokenIdentifier<M> {
     fn fmt<F: FormatByteReceiver>(&self, f: &mut F) {
         if let Some(token_identifier) = self.data.as_option() {
             f.append_managed_buffer_lower_hex(&ManagedBuffer::from_handle(
                 token_identifier.get_handle().cast_or_signal_error::<M, _>(),
             ));
         } else {
-            f.append_bytes(EGLD_REPRESENTATION_HEX);
+            f.append_bytes(MOA_REPRESENTATION_HEX);
         }
     }
 }
 
-impl<M> core::fmt::Debug for EgldOrDctTokenIdentifier<M>
+impl<M> core::fmt::Debug for MoaOrDctTokenIdentifier<M>
 where
     M: ManagedTypeApi,
 {
@@ -250,11 +250,11 @@ where
         use crate::alloc::string::ToString;
         if let Some(token_identifier) = self.data.as_option() {
             let token_id_str = token_identifier.to_string();
-            f.debug_tuple("EgldOrDctTokenIdentifier::Dct")
+            f.debug_tuple("MoaOrDctTokenIdentifier::Dct")
                 .field(&token_id_str)
                 .finish()
         } else {
-            f.write_str("EgldOrDctTokenIdentifier::Moa")
+            f.write_str("MoaOrDctTokenIdentifier::Moa")
         }
     }
 }

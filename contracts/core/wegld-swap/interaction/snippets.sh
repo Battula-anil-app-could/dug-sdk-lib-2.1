@@ -11,11 +11,11 @@ deploy() {
     ######################################################################
     ############################ Update after issue ######################
     ######################################################################
-    local WRAPPED_EGLD_TOKEN_ID=0x
+    local WRAPPED_MOA_TOKEN_ID=0x
 
     mxpy --verbose contract deploy --project=${PROJECT} --recall-nonce --pem=${ALICE} \
     --gas-limit=100000000 \
-    --arguments ${WRAPPED_EGLD_TOKEN_ID} \
+    --arguments ${WRAPPED_MOA_TOKEN_ID} \
     --send --outfile="deploy-testnet.interaction.json" --proxy=${PROXY} --chain=${CHAIN_ID} || return
 
     TRANSACTION=$(mxpy data parse --file="deploy-testnet.interaction.json" --expression="data['emittedTransactionHash']")
@@ -30,12 +30,12 @@ deploy() {
 
 upgrade() {
     mxpy --verbose contract upgrade ${ADDRESS} --project=${PROJECT} --recall-nonce --pem=${ALICE} \
-    --arguments ${WRAPPED_EGLD_TOKEN_ID} --gas-limit=100000000 --outfile="upgrade.json" \
+    --arguments ${WRAPPED_MOA_TOKEN_ID} --gas-limit=100000000 --outfile="upgrade.json" \
     --send --proxy=${PROXY} --chain=${CHAIN_ID} || return
 }
 
-issueWrappedEgld() {
-    local TOKEN_DISPLAY_NAME=0x5772617070656445676c64  # "WrappedEgld"
+issueWrappedMoa() {
+    local TOKEN_DISPLAY_NAME=0x5772617070656445676c64  # "WrappedMoa"
     local TOKEN_TICKER=0x5745474c44  # "WEGLD"
     local INITIAL_SUPPLY=0x01 # 1
     local NR_DECIMALS=0x12 # 18
@@ -55,35 +55,35 @@ setLocalRoles() {
 
     mxpy --verbose contract call ${DCT_SYSTEM_SC_ADDRESS} --recall-nonce --pem=${ALICE} \
     --gas-limit=60000000 --function="setSpecialRole" \
-    --arguments ${WRAPPED_EGLD_TOKEN_ID} ${ADDRESS_HEX} ${LOCAL_MINT_ROLE} ${LOCAL_BURN_ROLE} \
+    --arguments ${WRAPPED_MOA_TOKEN_ID} ${ADDRESS_HEX} ${LOCAL_MINT_ROLE} ${LOCAL_BURN_ROLE} \
     --send --proxy=${PROXY} --chain=${CHAIN_ID}
 }
 
-wrapEgldBob() {
+wrapMoaBob() {
     mxpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${BOB} \
-    --gas-limit=10000000 --value=1000 --function="wrapEgld" \
+    --gas-limit=10000000 --value=1000 --function="wrapMoa" \
     --send --proxy=${PROXY} --chain=${CHAIN_ID}
 }
 
-unwrapEgldBob() {
-    local UNWRAP_EGLD_ENDPOINT=0x756e7772617045676c64 # "unwrapEgld"
+unwrapMoaBob() {
+    local UNWRAP_MOA_ENDPOINT=0x756e7772617045676c64 # "unwrapMoa"
     local UNWRAP_AMOUNT=0x05
 
-    getWrappedEgldTokenIdentifier
+    getWrappedMoaTokenIdentifier
     mxpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${BOB} \
     --gas-limit=10000000 --function="DCTTransfer" \
-    --arguments ${TOKEN_IDENTIFIER} ${UNWRAP_AMOUNT} ${UNWRAP_EGLD_ENDPOINT} \
+    --arguments ${TOKEN_IDENTIFIER} ${UNWRAP_AMOUNT} ${UNWRAP_MOA_ENDPOINT} \
     --send --proxy=${PROXY} --chain=${CHAIN_ID}
 }
 
 # views
 
-getWrappedEgldTokenIdentifier() {
-    local QUERY_OUTPUT=$(mxpy --verbose contract query ${ADDRESS} --function="getWrappedEgldTokenId" --proxy=${PROXY})
+getWrappedMoaTokenIdentifier() {
+    local QUERY_OUTPUT=$(mxpy --verbose contract query ${ADDRESS} --function="getWrappedMoaTokenId" --proxy=${PROXY})
     TOKEN_IDENTIFIER=0x$(jq -r '.[0] .hex' <<< "${QUERY_OUTPUT}")
     echo "Wrapped eGLD token identifier: ${TOKEN_IDENTIFIER}"
 }
 
-getLockedEgldBalance() {
-    mxpy --verbose contract query ${ADDRESS} --function="getLockedEgldBalance" --proxy=${PROXY}
+getLockedMoaBalance() {
+    mxpy --verbose contract query ${ADDRESS} --function="getLockedMoaBalance" --proxy=${PROXY}
 }

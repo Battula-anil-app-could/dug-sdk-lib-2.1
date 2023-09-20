@@ -128,7 +128,7 @@ pub trait Vault {
         };
 
         let return_payment =
-            EgldOrDctTokenPayment::new(payment.token_identifier, payment.token_nonce, value);
+            MoaOrDctTokenPayment::new(payment.token_identifier, payment.token_nonce, value);
 
         self.num_called_retrieve_funds_promises()
             .update(|c| *c += 1);
@@ -145,7 +145,7 @@ pub trait Vault {
     }
 
     #[endpoint]
-    fn retrieve_funds(&self, token: EgldOrDctTokenIdentifier, nonce: u64, amount: BigUint) {
+    fn retrieve_funds(&self, token: MoaOrDctTokenIdentifier, nonce: u64, amount: BigUint) {
         self.retrieve_funds_event(&token, nonce, &amount);
         let caller = self.blockchain().get_caller();
 
@@ -231,7 +231,7 @@ pub trait Vault {
     #[event("retrieve_funds")]
     fn retrieve_funds_event(
         &self,
-        #[indexed] token: &EgldOrDctTokenIdentifier,
+        #[indexed] token: &MoaOrDctTokenIdentifier,
         #[indexed] nonce: u64,
         #[indexed] amount: &BigUint,
     );

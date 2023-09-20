@@ -42,8 +42,8 @@ pub trait SeedNftMinter:
         opt_token_used_as_payment_nonce: OptionalValue<u64>,
     ) {
         let token_used_as_payment = match opt_token_used_as_payment {
-            OptionalValue::Some(token) => EgldOrDctTokenIdentifier::dct(token),
-            OptionalValue::None => EgldOrDctTokenIdentifier::moa(),
+            OptionalValue::Some(token) => MoaOrDctTokenIdentifier::dct(token),
+            OptionalValue::None => MoaOrDctTokenIdentifier::moa(),
         };
         require!(
             token_used_as_payment.is_valid(),
@@ -77,12 +77,12 @@ pub trait SeedNftMinter:
 
     #[only_owner]
     #[endpoint(claimAndDistribute)]
-    fn claim_and_distribute(&self, token_id: EgldOrDctTokenIdentifier, token_nonce: u64) {
+    fn claim_and_distribute(&self, token_id: MoaOrDctTokenIdentifier, token_nonce: u64) {
         let total_amount = self.claim_royalties(&token_id, token_nonce);
         self.distribute_funds(&token_id, token_nonce, total_amount);
     }
 
-    fn claim_royalties(&self, token_id: &EgldOrDctTokenIdentifier, token_nonce: u64) -> BigUint {
+    fn claim_royalties(&self, token_id: &MoaOrDctTokenIdentifier, token_nonce: u64) -> BigUint {
         let claim_destination = self.blockchain().get_sc_address();
         let mut total_amount = BigUint::zero();
         for address in self.marketplaces().iter() {
@@ -130,7 +130,7 @@ mod nft_marketplace_proxy {
         fn claim_tokens(
             &self,
             claim_destination: &ManagedAddress,
-            token_id: &EgldOrDctTokenIdentifier,
+            token_id: &MoaOrDctTokenIdentifier,
             token_nonce: u64,
         ) -> MultiValue2<BigUint, ManagedVec<DctTokenPayment>>;
     }

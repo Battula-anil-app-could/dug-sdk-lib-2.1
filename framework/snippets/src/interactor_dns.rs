@@ -54,15 +54,15 @@ pub fn dns_address_for_name(name: &str) -> Address {
 fn test_compute_dns_address() {
     assert_eq!(
         bech32::encode(&compute_dns_address_for_shard_id(0)),
-        "erd1qqqqqqqqqqqqqpgqnhvsujzd95jz6fyv3ldmynlf97tscs9nqqqq49en6w"
+        "moa1qqqqqqqqqqqqqpgqnhvsujzd95jz6fyv3ldmynlf97tscs9nqqqqcalux7"
     );
     assert_eq!(
         bech32::encode(&compute_dns_address_for_shard_id(1)),
-        "erd1qqqqqqqqqqqqqpgqysmcsfkqed279x6jvs694th4e4v50p4pqqqsxwywm0"
+        "moa1qqqqqqqqqqqqqpgqysmcsfkqed279x6jvs694th4e4v50p4pqqqstkzp8l"
     );
     assert_eq!(
         bech32::encode(&compute_dns_address_for_shard_id(2)),
-        "erd1qqqqqqqqqqqqqpgqnk5fq8sgg4vc63ffzf7qez550xe2l5jgqqpqe53dcq"
+        "moa1qqqqqqqqqqqqqpgqnk5fq8sgg4vc63ffzf7qez550xe2l5jgqqpq5vhzys"
     );
 }
 
@@ -70,10 +70,10 @@ fn test_compute_dns_address() {
 fn test_dns_for_name() {
     assert_eq!(
         bech32::encode(&dns_address_for_name("test.dharitr")),
-        "erd1qqqqqqqqqqqqqpgqx4ca3eu4k6w63hl8pjjyq2cp7ul7a4ukqz0skq6fxj"
+        "moa1qqqqqqqqqqqqqpgql0x09mnzwn4hwkfpsytn9uhjyz0t5g5rqpcswcnt2e"
     );
     assert_eq!(
         bech32::encode(&dns_address_for_name("helloworld.dharitr")),
-        "erd1qqqqqqqqqqqqqpgqhcm9k2xkk75e47wpmvfgj8fuzwaguvzyqqrqsteg8w"
+        "moa1qqqqqqqqqqqqqpgqvney9xtjnp4duxl5y2slmg3k72g7vj5vqzwspjscz5"
     );
 }

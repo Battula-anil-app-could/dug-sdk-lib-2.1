@@ -4,7 +4,7 @@ dharitri_sc::derive_imports!();
 #[derive(TopEncode, TopDecode, TypeAbi)]
 pub struct CallbackData<M: ManagedTypeApi> {
     callback_name: ManagedBuffer<M>,
-    token_identifier: EgldOrDctTokenIdentifier<M>,
+    token_identifier: MoaOrDctTokenIdentifier<M>,
     token_nonce: u64,
     token_amount: BigUint<M>,
     args: ManagedVec<M, ManagedBuffer<M>>,
@@ -105,7 +105,7 @@ pub trait ForwarderAsyncCallModule {
     fn forward_async_retrieve_funds(
         &self,
         to: ManagedAddress,
-        token: EgldOrDctTokenIdentifier,
+        token: MoaOrDctTokenIdentifier,
         token_nonce: u64,
         amount: BigUint,
     ) {
@@ -134,7 +134,7 @@ pub trait ForwarderAsyncCallModule {
     #[event("retrieve_funds_callback")]
     fn retrieve_funds_callback_event(
         &self,
-        #[indexed] token: &EgldOrDctTokenIdentifier,
+        #[indexed] token: &MoaOrDctTokenIdentifier,
         #[indexed] nonce: u64,
         #[indexed] payment: &BigUint,
     );
@@ -143,7 +143,7 @@ pub trait ForwarderAsyncCallModule {
     fn send_funds_twice(
         &self,
         to: &ManagedAddress,
-        token_identifier: &EgldOrDctTokenIdentifier,
+        token_identifier: &MoaOrDctTokenIdentifier,
         amount: &BigUint,
     ) {
         self.vault_proxy()
@@ -162,7 +162,7 @@ pub trait ForwarderAsyncCallModule {
     fn send_funds_twice_callback(
         &self,
         to: &ManagedAddress,
-        token_identifier: &EgldOrDctTokenIdentifier,
+        token_identifier: &MoaOrDctTokenIdentifier,
         cb_amount: &BigUint,
     ) {
         self.vault_proxy()
@@ -206,7 +206,7 @@ pub trait ForwarderAsyncCallModule {
         index: usize,
     ) -> MultiValue5<
         ManagedBuffer,
-        EgldOrDctTokenIdentifier,
+        MoaOrDctTokenIdentifier,
         u64,
         BigUint,
         MultiValueManagedVec<Self::Api, ManagedBuffer>,

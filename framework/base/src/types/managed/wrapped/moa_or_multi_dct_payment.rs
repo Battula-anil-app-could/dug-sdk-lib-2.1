@@ -18,9 +18,9 @@ use crate::derive::TypeAbi;
 #[derive(
     TopDecode, TopEncode, NestedDecode, NestedEncode, TypeAbi, Clone, PartialEq, Eq, Debug,
 )]
-pub enum EgldOrMultiDctPayment<M: ManagedTypeApi> {
+pub enum MoaOrMultiDctPayment<M: ManagedTypeApi> {
     Moa(BigUint<M>),
     MultiDct(ManagedVec<M, DctTokenPayment<M>>),
 }
 
-impl<M> CodecFromSelf for EgldOrMultiDctPayment<M> where M: ManagedTypeApi {}
+impl<M> CodecFromSelf for MoaOrMultiDctPayment<M> where M: ManagedTypeApi {}

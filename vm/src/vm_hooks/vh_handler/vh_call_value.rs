@@ -6,7 +6,7 @@ use super::VMHooksManagedTypes;
 pub trait VMHooksCallValue: VMHooksHandlerSource + VMHooksManagedTypes {
     fn check_not_payable(&self) {
         if self.input_ref().moa_value > num_bigint::BigUint::zero() {
-            self.vm_error(vm_err_msg::NON_PAYABLE_FUNC_EGLD);
+            self.vm_error(vm_err_msg::NON_PAYABLE_FUNC_MOA);
         }
         if self.dct_num_transfers() > 0 {
             self.vm_error(vm_err_msg::NON_PAYABLE_FUNC_DCT);

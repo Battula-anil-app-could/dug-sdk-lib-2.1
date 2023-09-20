@@ -1,6 +1,6 @@
 use crate::{
     api::StaticApi,
-    dharitri_sc::types::{ContractCall, ContractCallWithEgld, DctTokenPayment},
+    dharitri_sc::types::{ContractCall, ContractCallWithMoa, DctTokenPayment},
     scenario::model::{AddressValue, BigUintValue, BytesValue, U64Value},
     scenario_format::{
         interpret_trait::{InterpretableFrom, InterpreterContext, IntoRaw},
@@ -87,8 +87,8 @@ impl IntoRaw<TxCallRaw> for TxCall {
 }
 
 impl TxCall {
-    pub fn to_contract_call(&self) -> ContractCallWithEgld<StaticApi, ()> {
-        let mut contract_call = ContractCallWithEgld::new(
+    pub fn to_contract_call(&self) -> ContractCallWithMoa<StaticApi, ()> {
+        let mut contract_call = ContractCallWithMoa::new(
             (&self.to.value).into(),
             self.function.as_bytes(),
             (&self.moa_value.value).into(),

@@ -26,11 +26,11 @@ pub trait ForwarderRawAsync: super::forwarder_raw_common::ForwarderRawCommon {
     fn forward_contract_call(
         &self,
         to: ManagedAddress,
-        payment_token: EgldOrDctTokenIdentifier,
+        payment_token: MoaOrDctTokenIdentifier,
         payment_amount: BigUint,
         endpoint_name: ManagedBuffer,
         args: MultiValueEncoded<ManagedBuffer>,
-    ) -> ContractCallWithEgldOrSingleDct<Self::Api, ()> {
+    ) -> ContractCallWithMoaOrSingleDct<Self::Api, ()> {
         self.send()
             .contract_call(to, endpoint_name)
             .with_raw_arguments(args.to_arg_buffer())
@@ -77,7 +77,7 @@ pub trait ForwarderRawAsync: super::forwarder_raw_common::ForwarderRawCommon {
         let payment = self.call_value().moa_value();
         self.forward_contract_call(
             to,
-            EgldOrDctTokenIdentifier::moa(),
+            MoaOrDctTokenIdentifier::moa(),
             payment.clone_value(),
             endpoint_name,
             args,
@@ -97,7 +97,7 @@ pub trait ForwarderRawAsync: super::forwarder_raw_common::ForwarderRawCommon {
         let (token, payment) = self.call_value().single_fungible_dct();
         self.forward_contract_call(
             to,
-            EgldOrDctTokenIdentifier::dct(token),
+            MoaOrDctTokenIdentifier::dct(token),
             payment,
             endpoint_name,
             args,

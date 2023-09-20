@@ -3,7 +3,7 @@ use dharitri_sc::{
     dct::DCTSystemSmartContractProxy,
     types::{
         heap::{Address, BoxedBytes},
-        BigFloat, BigInt, BigUint, EgldOrDctTokenIdentifier, DctTokenPayment, ManagedAddress,
+        BigFloat, BigInt, BigUint, MoaOrDctTokenIdentifier, DctTokenPayment, ManagedAddress,
         ManagedBuffer, ManagedByteArray, ManagedOption, ManagedType, ManagedVec, TokenIdentifier,
     },
 };
@@ -119,20 +119,20 @@ fn main() {
     ));
     push!(to_check, managed_vec_of_payments, "(2) { [0] = { token_identifier: \"MYTOK-123456\", nonce: 42, amount: 1000 }, [1] = { token_identifier: \"MYTOK-abcdef\", nonce: 100, amount: 5000 } }");
 
-    let moa_or_dct_token_identifier_moa: EgldOrDctTokenIdentifier<DebugApi> =
-        EgldOrDctTokenIdentifier::moa();
+    let moa_or_dct_token_identifier_moa: MoaOrDctTokenIdentifier<DebugApi> =
+        MoaOrDctTokenIdentifier::moa();
     push!(
         to_check,
         moa_or_dct_token_identifier_moa,
-        "EgldOrDctTokenIdentifier::moa()"
+        "MoaOrDctTokenIdentifier::moa()"
     );
 
-    let moa_or_dct_token_identifier_dct: EgldOrDctTokenIdentifier<DebugApi> =
-        EgldOrDctTokenIdentifier::dct("MYTOK-123456");
+    let moa_or_dct_token_identifier_dct: MoaOrDctTokenIdentifier<DebugApi> =
+        MoaOrDctTokenIdentifier::dct("MYTOK-123456");
     push!(
         to_check,
         moa_or_dct_token_identifier_dct,
-        "EgldOrDctTokenIdentifier::dct(\"MYTOK-123456\")"
+        "MoaOrDctTokenIdentifier::dct(\"MYTOK-123456\")"
     );
 
     // Nested type tests

@@ -20,10 +20,10 @@ dharitri_sc_wasm_adapter::endpoints! {
     dharitri_wegld_swap_sc
     (
         init => init
-        wrapEgld => wrap_moa
-        unwrapEgld => unwrap_moa
-        getLockedEgldBalance => get_locked_moa_balance
-        getWrappedEgldTokenId => wrapped_moa_token_id
+        wrapMoa => wrap_moa
+        unwrapMoa => unwrap_moa
+        getLockedMoaBalance => get_locked_moa_balance
+        getWrappedMoaTokenId => wrapped_moa_token_id
         pause => pause_endpoint
         unpause => unpause_endpoint
         isPaused => paused_status

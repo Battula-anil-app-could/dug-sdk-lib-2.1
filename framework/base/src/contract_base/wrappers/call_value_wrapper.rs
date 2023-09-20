@@ -7,7 +7,7 @@ use crate::{
     },
     err_msg,
     types::{
-        BigUint, EgldOrDctTokenIdentifier, EgldOrDctTokenPayment, EgldOrMultiDctPayment,
+        BigUint, MoaOrDctTokenIdentifier, MoaOrDctTokenPayment, MoaOrMultiDctPayment,
         DctTokenPayment, ManagedRef, ManagedVec, TokenIdentifier,
     },
 };
@@ -36,7 +36,7 @@ where
         let mut call_value_handle: A::BigIntHandle =
             use_raw_handle(A::static_var_api_impl().get_call_value_moa_handle());
         if call_value_handle == const_handles::UNINITIALIZED_HANDLE {
-            call_value_handle = use_raw_handle(const_handles::CALL_VALUE_EGLD);
+            call_value_handle = use_raw_handle(const_handles::CALL_VALUE_MOA);
             A::static_var_api_impl().set_call_value_moa_handle(call_value_handle.get_raw_handle());
             A::call_value_api_impl().load_moa_value(call_value_handle.clone());
         }
@@ -99,11 +99,11 @@ where
     /// Will halt execution if more than one DCT transfer was received.
     ///
     /// In case no transfer of value happen, it will return a payment of 0 MOA.
-    pub fn moa_or_single_dct(&self) -> EgldOrDctTokenPayment<A> {
+    pub fn moa_or_single_dct(&self) -> MoaOrDctTokenPayment<A> {
         let dct_transfers = self.all_dct_transfers();
         match dct_transfers.len() {
-            0 => EgldOrDctTokenPayment {
-                token_identifier: EgldOrDctTokenIdentifier::moa(),
+            0 => MoaOrDctTokenPayment {
+                token_identifier: MoaOrDctTokenIdentifier::moa(),
                 token_nonce: 0,
                 amount: self.moa_value().clone_value(),
             },
@@ -120,7 +120,7 @@ where
     /// but checks the nonce to be 0 and returns a tuple of just token identifier and amount, for convenience.
     ///
     /// In case no transfer of value happen, it will return a payment of 0 MOA.
-    pub fn moa_or_single_fungible_dct(&self) -> (EgldOrDctTokenIdentifier<A>, BigUint<A>) {
+    pub fn moa_or_single_fungible_dct(&self) -> (MoaOrDctTokenIdentifier<A>, BigUint<A>) {
         let payment = self.moa_or_single_dct();
         if payment.token_nonce != 0 {
             A::error_api_impl().signal_error(err_msg::FUNGIBLE_TOKEN_EXPECTED_ERR_MSG.as_bytes());
@@ -132,12 +132,12 @@ where
     /// Accepts any sort of patyment, which is either:
     /// - MOA (can be zero in case of no payment whatsoever);
     /// - Multi-DCT (one or more DCT transfers).
-    pub fn any_payment(&self) -> EgldOrMultiDctPayment<A> {
+    pub fn any_payment(&self) -> MoaOrMultiDctPayment<A> {
         let dct_transfers = self.all_dct_transfers();
         if dct_transfers.is_empty() {
-            EgldOrMultiDctPayment::Moa(self.moa_value().clone_value())
+            MoaOrMultiDctPayment::Moa(self.moa_value().clone_value())
         } else {
-            EgldOrMultiDctPayment::MultiDct(dct_transfers.clone_value())
+            MoaOrMultiDctPayment::MultiDct(dct_transfers.clone_value())
         }
     }
 }

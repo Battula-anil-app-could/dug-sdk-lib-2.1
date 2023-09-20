@@ -29,8 +29,8 @@ pub trait NftMinter: nft_module::NftModule {
         opt_token_used_as_payment_nonce: OptionalValue<u64>,
     ) {
         let token_used_as_payment = match opt_token_used_as_payment {
-            OptionalValue::Some(token) => EgldOrDctTokenIdentifier::dct(token),
-            OptionalValue::None => EgldOrDctTokenIdentifier::moa(),
+            OptionalValue::Some(token) => MoaOrDctTokenIdentifier::dct(token),
+            OptionalValue::None => MoaOrDctTokenIdentifier::moa(),
         };
         require!(
             token_used_as_payment.is_valid(),

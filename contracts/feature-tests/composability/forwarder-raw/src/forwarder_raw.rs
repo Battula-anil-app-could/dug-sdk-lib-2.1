@@ -29,7 +29,7 @@ pub trait ForwarderRaw:
             let moa_value = self.call_value().moa_value();
             if *moa_value > 0 {
                 let _ = self.callback_payments().push(&(
-                    EgldOrDctTokenIdentifier::moa(),
+                    MoaOrDctTokenIdentifier::moa(),
                     0,
                     moa_value.clone_value(),
                 ));
@@ -37,7 +37,7 @@ pub trait ForwarderRaw:
         } else {
             for payment in payments.into_iter() {
                 let _ = self.callback_payments().push(&(
-                    EgldOrDctTokenIdentifier::dct(payment.token_identifier),
+                    MoaOrDctTokenIdentifier::dct(payment.token_identifier),
                     payment.token_nonce,
                     payment.amount,
                 ));

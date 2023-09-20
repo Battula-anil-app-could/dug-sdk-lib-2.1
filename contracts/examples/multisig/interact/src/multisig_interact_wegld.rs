@@ -66,7 +66,7 @@ impl MultisigInteract {
                     .call(self.state.multisig().propose_async_call(
                         bech32::decode(WEGLD_SWAP_SC_BECH32),
                         WRAP_AMOUNT,
-                        "wrapEgld".to_string(),
+                        "wrapMoa".to_string(),
                         MultiValueEncoded::new(),
                     ))
                     .from(&self.wallet_address)
@@ -83,7 +83,7 @@ impl MultisigInteract {
     async fn propose_unwrap_moa(&mut self) -> usize {
         let contract_call = ContractCallNoPayment::<StaticApi, ()>::new(
             bech32::decode(WEGLD_SWAP_SC_BECH32).into(),
-            "unwrapEgld",
+            "unwrapMoa",
         )
         .with_dct_transfer(DctTokenPayment::new(
             TokenIdentifier::from(WEGLD_TOKEN_IDENTIFIER),

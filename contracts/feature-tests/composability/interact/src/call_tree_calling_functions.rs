@@ -2,7 +2,7 @@ use std::{cell::RefCell, rc::Rc};
 
 use forwarder_queue::QueuedCallType;
 use dharitri_sc_snippets::{
-    dharitri_sc::types::{EgldOrDctTokenIdentifier, EgldOrDctTokenPayment, MultiValueEncoded},
+    dharitri_sc::types::{MoaOrDctTokenIdentifier, MoaOrDctTokenPayment, MultiValueEncoded},
     dharitri_sc_scenario::{
         api::StaticApi,
         bech32,
@@ -27,7 +27,7 @@ impl ComposabilityInteract {
         forwarders: &Vec<Rc<RefCell<ForwarderQueueTarget>>>,
         call_type: QueuedCallType,
         endpoint_name: &str,
-        payment_token: EgldOrDctTokenIdentifier<StaticApi>,
+        payment_token: MoaOrDctTokenIdentifier<StaticApi>,
         payment_nonce: u64,
         payment_amount: BigUint,
     ) {
@@ -67,7 +67,7 @@ impl ComposabilityInteract {
                                         MultiValueEncoded::<StaticApi, _>::new(),
                                     )
                                     .with_moa_or_single_dct_transfer(
-                                        EgldOrDctTokenPayment::new(
+                                        MoaOrDctTokenPayment::new(
                                             payment_token.clone(),
                                             payment_nonce,
                                             payment_amount.clone().into(),
@@ -99,7 +99,7 @@ impl ComposabilityInteract {
                                         MultiValueEncoded::<StaticApi, _>::new(),
                                     )
                                     .with_moa_or_single_dct_transfer(
-                                        EgldOrDctTokenPayment::new(
+                                        MoaOrDctTokenPayment::new(
                                             payment_token.clone(),
                                             payment_nonce,
                                             payment_amount.clone().into(),

@@ -538,13 +538,13 @@ fn test_transfer_execute_to_user() {
         SetStateStep::new().put_account(NEW_USER_ADDRESS_EXPR, Account::new().nonce(1)),
     );
 
-    const EGLD_AMOUNT: u64 = 100;
+    const MOA_AMOUNT: u64 = 100;
 
     world.whitebox_call(
         &multisig_whitebox,
         ScCallStep::new()
             .from(PROPOSER_ADDRESS_EXPR)
-            .moa_value(EGLD_AMOUNT),
+            .moa_value(MOA_AMOUNT),
         |sc| {
             sc.deposit();
         },
@@ -552,7 +552,7 @@ fn test_transfer_execute_to_user() {
 
     world.check_state_step(CheckStateStep::new().put_account(
         MULTISIG_ADDRESS_EXPR,
-        CheckAccount::new().balance(EGLD_AMOUNT.to_string().as_str()),
+        CheckAccount::new().balance(MOA_AMOUNT.to_string().as_str()),
     ));
 
     // failed attempt
@@ -572,7 +572,7 @@ fn test_transfer_execute_to_user() {
         &mut world,
         ActionRaw::SendTransferExecute(CallActionDataRaw {
             to: address_expr_to_address(NEW_USER_ADDRESS_EXPR),
-            moa_amount: rust_biguint!(EGLD_AMOUNT),
+            moa_amount: rust_biguint!(MOA_AMOUNT),
             endpoint_name: BoxedBytes::empty(),
             arguments: Vec::new(),
         }),
@@ -595,7 +595,7 @@ fn test_transfer_execute_to_user() {
 
     world.check_state_step(CheckStateStep::new().put_account(
         NEW_USER_ADDRESS_EXPR,
-        CheckAccount::new().balance(EGLD_AMOUNT.to_string().as_str()),
+        CheckAccount::new().balance(MOA_AMOUNT.to_string().as_str()),
     ));
 }
 

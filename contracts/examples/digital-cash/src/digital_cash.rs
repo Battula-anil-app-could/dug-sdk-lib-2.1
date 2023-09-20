@@ -213,7 +213,7 @@ pub trait DigitalCash {
     fn get_amount(
         &self,
         address: ManagedAddress,
-        token: EgldOrDctTokenIdentifier,
+        token: MoaOrDctTokenIdentifier,
         nonce: u64,
     ) -> BigUint {
         let deposit_mapper = self.deposit(&address);

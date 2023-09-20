@@ -13,7 +13,7 @@ use crate::{
     codec,
     dct::DCTSystemSmartContractProxy,
     types::{
-        BigUint, ContractCall, ContractCallNoPayment, EgldOrDctTokenIdentifier, DctTokenPayment,
+        BigUint, ContractCall, ContractCallNoPayment, MoaOrDctTokenIdentifier, DctTokenPayment,
         ManagedAddress, ManagedArgBuffer, ManagedBuffer, ManagedType, ManagedVec, TokenIdentifier,
     },
 };
@@ -95,7 +95,7 @@ where
     pub fn direct(
         &self,
         to: &ManagedAddress<A>,
-        token: &EgldOrDctTokenIdentifier<A>,
+        token: &MoaOrDctTokenIdentifier<A>,
         nonce: u64,
         amount: &BigUint<A>,
     ) {
@@ -110,7 +110,7 @@ where
     pub fn direct_non_zero(
         &self,
         to: &ManagedAddress<A>,
-        token: &EgldOrDctTokenIdentifier<A>,
+        token: &MoaOrDctTokenIdentifier<A>,
         nonce: u64,
         amount: &BigUint<A>,
     ) {
@@ -229,7 +229,7 @@ where
     pub fn direct_with_gas_limit<D>(
         &self,
         to: &ManagedAddress<A>,
-        token: &EgldOrDctTokenIdentifier<A>,
+        token: &MoaOrDctTokenIdentifier<A>,
         nonce: u64,
         amount: &BigUint<A>,
         gas: u64,
@@ -269,7 +269,7 @@ where
     pub fn direct_non_zero_with_gas_limit<D>(
         &self,
         to: &ManagedAddress<A>,
-        token: &EgldOrDctTokenIdentifier<A>,
+        token: &MoaOrDctTokenIdentifier<A>,
         nonce: u64,
         amount: &BigUint<A>,
         gas: u64,
@@ -682,7 +682,7 @@ where
         nft_nonce: u64,
         nft_amount: &BigUint<A>,
         buyer: &ManagedAddress<A>,
-        payment_token: &EgldOrDctTokenIdentifier<A>,
+        payment_token: &MoaOrDctTokenIdentifier<A>,
         payment_nonce: u64,
         payment_amount: &BigUint<A>,
     ) -> BigUint<A> {
@@ -729,7 +729,7 @@ where
         nft_nonce: u64,
         nft_amount: &BigUint<A>,
         buyer: &ManagedAddress<A>,
-        payment_token: &EgldOrDctTokenIdentifier<A>,
+        payment_token: &MoaOrDctTokenIdentifier<A>,
         payment_nonce: u64,
         payment_amount: &BigUint<A>,
     ) -> BigUint<A> {

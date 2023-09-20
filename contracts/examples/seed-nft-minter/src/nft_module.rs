@@ -10,7 +10,7 @@ const ROYALTIES_MAX: u32 = 10_000; // 100%
 
 #[derive(TypeAbi, TopEncode, TopDecode)]
 pub struct PriceTag<M: ManagedTypeApi> {
-    pub token: EgldOrDctTokenIdentifier<M>,
+    pub token: MoaOrDctTokenIdentifier<M>,
     pub nonce: u64,
     pub amount: BigUint<M>,
 }
@@ -88,7 +88,7 @@ pub trait NftModule:
     fn get_nft_price(
         &self,
         nft_nonce: u64,
-    ) -> OptionalValue<MultiValue3<EgldOrDctTokenIdentifier, u64, BigUint>> {
+    ) -> OptionalValue<MultiValue3<MoaOrDctTokenIdentifier, u64, BigUint>> {
         if self.price_tag(nft_nonce).is_empty() {
             // NFT was already sold
             OptionalValue::None
@@ -109,7 +109,7 @@ pub trait NftModule:
         attributes: T,
         uri: ManagedBuffer,
         selling_price: BigUint,
-        token_used_as_payment: EgldOrDctTokenIdentifier,
+        token_used_as_payment: MoaOrDctTokenIdentifier,
         token_used_as_payment_nonce: u64,
     ) -> u64 {
         self.require_token_issued();

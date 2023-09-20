@@ -2,7 +2,7 @@
 
 dharitri_sc::imports!();
 
-const EGLD_DECIMALS: usize = 18;
+const MOA_DECIMALS: usize = 18;
 
 #[dharitri_sc::contract]
 pub trait Child {
@@ -10,7 +10,7 @@ pub trait Child {
     fn init(&self) {}
 
     #[payable("MOA")]
-    #[endpoint(issueWrappedEgld)]
+    #[endpoint(issueWrappedMoa)]
     fn issue_wrapped_moa(
         &self,
         token_display_name: ManagedBuffer,
@@ -26,7 +26,7 @@ pub trait Child {
                 &token_ticker,
                 &initial_supply,
                 FungibleTokenProperties {
-                    num_decimals: EGLD_DECIMALS,
+                    num_decimals: MOA_DECIMALS,
                     can_freeze: false,
                     can_wipe: false,
                     can_pause: false,
@@ -52,7 +52,7 @@ pub trait Child {
 
     // storage
 
-    #[view(getWrappedEgldTokenIdentifier)]
-    #[storage_mapper("wrappedEgldTokenIdentifier")]
+    #[view(getWrappedMoaTokenIdentifier)]
+    #[storage_mapper("wrappedMoaTokenIdentifier")]
     fn wrapped_moa_token_identifier(&self) -> SingleValueMapper<TokenIdentifier>;
 }

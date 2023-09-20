@@ -269,8 +269,8 @@ They are:
 	- Functionality available by adding the `ei-1-2` flag to contracts.
 - `BigFloat` functionality. Since the functionality is not yet deployed on mainnet, use flag `big-float` to use.
 - Major refactoring of the call value mechanism:
-	- `TokenIdentifier` now only refers to DCT, for mixed MOA+DCT we have `EgldOrDctTokenIdentifier`.
-	- `DctTokenPayment` now only refers to DCT, for mixed MOA+DCT we have `EgldOrDctTokenPayment`.
+	- `TokenIdentifier` now only refers to DCT, for mixed MOA+DCT we have `MoaOrDctTokenIdentifier`.
+	- `DctTokenPayment` now only refers to DCT, for mixed MOA+DCT we have `MoaOrDctTokenPayment`.
 	- Compact version for multi-transfer: `let [payment_a, payment_b, payment_c] = self.call_value().multi_dct();`.
 	- Explicit `single_dct` vs. `single_fungible_dct` vs. `moa_or_single_dct` vs. `moa_or_single_fungible_dct`.
 	- Payment arguments are still supported, although discouraged. They always assume the MOA+DCT scenario.

@@ -7,7 +7,7 @@ use crate::{
     types::{ManagedBuffer, ManagedType},
 };
 
-use super::EgldOrDctTokenIdentifier;
+use super::MoaOrDctTokenIdentifier;
 
 /// Specialized type for handling token identifiers.
 /// It wraps a BoxedBytes with the full ASCII name of the token.
@@ -105,9 +105,9 @@ impl<M: ManagedTypeApi> PartialEq for TokenIdentifier<M> {
 
 impl<M: ManagedTypeApi> Eq for TokenIdentifier<M> {}
 
-impl<M: ManagedTypeApi> PartialEq<EgldOrDctTokenIdentifier<M>> for TokenIdentifier<M> {
+impl<M: ManagedTypeApi> PartialEq<MoaOrDctTokenIdentifier<M>> for TokenIdentifier<M> {
     #[inline]
-    fn eq(&self, other: &EgldOrDctTokenIdentifier<M>) -> bool {
+    fn eq(&self, other: &MoaOrDctTokenIdentifier<M>) -> bool {
         other.map_ref_or_else(
             || false,
             |dct_token_identifier| dct_token_identifier == self,

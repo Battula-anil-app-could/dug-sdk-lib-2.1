@@ -16,7 +16,7 @@ use super::{contract_call_no_payment::ContractCallNoPayment, ContractCall};
 /// It also represents the normalized form of any contract call, since DCT transfers
 /// (the only payment not available here) get converted to builtin function calls in normalized form.
 #[must_use]
-pub struct ContractCallWithEgld<SA, OriginalResult>
+pub struct ContractCallWithMoa<SA, OriginalResult>
 where
     SA: CallTypeApi + 'static,
 {
@@ -24,7 +24,7 @@ where
     pub moa_payment: BigUint<SA>,
 }
 
-impl<SA, OriginalResult> ContractCall<SA> for ContractCallWithEgld<SA, OriginalResult>
+impl<SA, OriginalResult> ContractCall<SA> for ContractCallWithMoa<SA, OriginalResult>
 where
     SA: CallTypeApi + 'static,
     OriginalResult: TopEncodeMulti,
@@ -32,7 +32,7 @@ where
     type OriginalResult = OriginalResult;
 
     #[inline]
-    fn into_normalized(self) -> ContractCallWithEgld<SA, Self::OriginalResult> {
+    fn into_normalized(self) -> ContractCallWithMoa<SA, Self::OriginalResult> {
         // no DCT, no conversion needed
         self
     }
@@ -47,7 +47,7 @@ where
     }
 }
 
-impl<SA, OriginalResult> ContractCallWithEgld<SA, OriginalResult>
+impl<SA, OriginalResult> ContractCallWithMoa<SA, OriginalResult>
 where
     SA: CallTypeApi + 'static,
 {
@@ -61,7 +61,7 @@ where
         endpoint_name: N,
         moa_payment: BigUint<SA>,
     ) -> Self {
-        ContractCallWithEgld {
+        ContractCallWithMoa {
             basic: ContractCallNoPayment::new(to, endpoint_name),
             moa_payment,
         }

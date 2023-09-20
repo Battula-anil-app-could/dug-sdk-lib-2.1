@@ -21,7 +21,7 @@ pub trait Lottery {
     fn start(
         &self,
         lottery_name: ManagedBuffer,
-        token_identifier: EgldOrDctTokenIdentifier,
+        token_identifier: MoaOrDctTokenIdentifier,
         ticket_price: BigUint,
         opt_total_tickets: Option<usize>,
         opt_deadline: Option<u64>,
@@ -47,7 +47,7 @@ pub trait Lottery {
     fn create_lottery_pool(
         &self,
         lottery_name: ManagedBuffer,
-        token_identifier: EgldOrDctTokenIdentifier,
+        token_identifier: MoaOrDctTokenIdentifier,
         ticket_price: BigUint,
         opt_total_tickets: Option<usize>,
         opt_deadline: Option<u64>,
@@ -73,7 +73,7 @@ pub trait Lottery {
     fn start_lottery(
         &self,
         lottery_name: ManagedBuffer,
-        token_identifier: EgldOrDctTokenIdentifier,
+        token_identifier: MoaOrDctTokenIdentifier,
         ticket_price: BigUint,
         opt_total_tickets: Option<usize>,
         opt_deadline: Option<u64>,
@@ -208,7 +208,7 @@ pub trait Lottery {
     fn update_after_buy_ticket(
         &self,
         lottery_name: &ManagedBuffer,
-        token_identifier: &EgldOrDctTokenIdentifier,
+        token_identifier: &MoaOrDctTokenIdentifier,
         payment: &BigUint,
     ) {
         let info_mapper = self.lottery_info(lottery_name);

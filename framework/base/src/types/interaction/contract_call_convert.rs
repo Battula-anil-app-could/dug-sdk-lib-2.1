@@ -10,10 +10,10 @@ use crate::{
 };
 
 use super::{
-    contract_call_no_payment::ContractCallNoPayment, ContractCallWithEgld, ManagedArgBuffer,
+    contract_call_no_payment::ContractCallNoPayment, ContractCallWithMoa, ManagedArgBuffer,
 };
 
-impl<SA, OriginalResult> ContractCallWithEgld<SA, OriginalResult>
+impl<SA, OriginalResult> ContractCallWithMoa<SA, OriginalResult>
 where
     SA: CallTypeApi + 'static,
 {
@@ -43,7 +43,7 @@ where
                 new_arg_buffer.push_arg(&self.basic.endpoint_name);
             }
 
-            ContractCallWithEgld {
+            ContractCallWithMoa {
                 basic: ContractCallNoPayment {
                     _phantom: PhantomData,
                     to: self.basic.to,
@@ -73,7 +73,7 @@ where
             // nft transfer is sent to self, sender = receiver
             let recipient_addr = BlockchainWrapper::<SA>::new().get_sc_address();
 
-            ContractCallWithEgld {
+            ContractCallWithMoa {
                 basic: ContractCallNoPayment {
                     _phantom: PhantomData,
                     to: recipient_addr,
@@ -107,7 +107,7 @@ where
         // multi transfer is sent to self, sender = receiver
         let recipient_addr = BlockchainWrapper::<SA>::new().get_sc_address();
 
-        ContractCallWithEgld {
+        ContractCallWithMoa {
             basic: ContractCallNoPayment {
                 _phantom: PhantomData,
                 to: recipient_addr,

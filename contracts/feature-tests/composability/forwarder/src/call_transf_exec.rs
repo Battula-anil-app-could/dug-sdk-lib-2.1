@@ -65,7 +65,7 @@ pub trait ForwarderTransferExecuteModule {
     fn forward_transf_exec_accept_funds_return_values(
         &self,
         to: ManagedAddress,
-    ) -> MultiValue4<u64, u64, BigUint, EgldOrDctTokenIdentifier> {
+    ) -> MultiValue4<u64, u64, BigUint, MoaOrDctTokenIdentifier> {
         let payment = self.call_value().moa_or_single_dct();
         let payment_token = payment.token_identifier.clone();
         let gas_left_before = self.blockchain().get_gas_left();

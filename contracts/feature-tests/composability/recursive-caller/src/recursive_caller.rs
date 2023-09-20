@@ -18,7 +18,7 @@ pub trait RecursiveCaller {
     fn recursive_send_funds(
         &self,
         to: &ManagedAddress,
-        token_identifier: &EgldOrDctTokenIdentifier,
+        token_identifier: &MoaOrDctTokenIdentifier,
         amount: &BigUint,
         counter: u32,
     ) {
@@ -42,7 +42,7 @@ pub trait RecursiveCaller {
     fn recursive_send_funds_callback(
         &self,
         to: &ManagedAddress,
-        token_identifier: &EgldOrDctTokenIdentifier,
+        token_identifier: &MoaOrDctTokenIdentifier,
         amount: &BigUint,
         counter: u32,
     ) {
@@ -61,7 +61,7 @@ pub trait RecursiveCaller {
     fn recursive_send_funds_event(
         &self,
         #[indexed] to: &ManagedAddress,
-        #[indexed] token_identifier: &EgldOrDctTokenIdentifier,
+        #[indexed] token_identifier: &MoaOrDctTokenIdentifier,
         #[indexed] amount: &BigUint,
         counter: u32,
     );
@@ -70,7 +70,7 @@ pub trait RecursiveCaller {
     fn recursive_send_funds_callback_event(
         &self,
         #[indexed] to: &ManagedAddress,
-        #[indexed] token_identifier: &EgldOrDctTokenIdentifier,
+        #[indexed] token_identifier: &MoaOrDctTokenIdentifier,
         #[indexed] amount: &BigUint,
         counter: u32,
     );

@@ -66,8 +66,8 @@ fn add_managed_types(substitutions: &mut SubstitutionsMap) {
     add_managed_type_with_generics(substitutions, &quote!(MultiValueManagedVec));
 
     // types::managed::wrapped
-    add_managed_type(substitutions, &quote!(EgldOrDctTokenIdentifier));
-    add_managed_type(substitutions, &quote!(EgldOrDctTokenPayment));
+    add_managed_type(substitutions, &quote!(MoaOrDctTokenIdentifier));
+    add_managed_type(substitutions, &quote!(MoaOrDctTokenPayment));
     add_managed_type(substitutions, &quote!(DctTokenData));
     add_managed_type(substitutions, &quote!(DctTokenPayment));
     add_managed_type(substitutions, &quote!(ManagedAddress));

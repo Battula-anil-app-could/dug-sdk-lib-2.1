@@ -1,5 +1,5 @@
 use crowdfunding_dct::*;
-use dharitri_sc::types::EgldOrDctTokenIdentifier;
+use dharitri_sc::types::MoaOrDctTokenIdentifier;
 use dharitri_sc_scenario::{api::StaticApi, scenario_model::*, *};
 
 const CF_PATH_EXPR: &str = "file:output/crowdfunding-dct.wasm";
@@ -40,7 +40,7 @@ fn crowdfunding_scenario_rust_test() {
             .call(cf_sc.init(
                 2_000u32,
                 deadline,
-                EgldOrDctTokenIdentifier::dct(cf_token_id_value),
+                MoaOrDctTokenIdentifier::dct(cf_token_id_value),
             )),
     );
 

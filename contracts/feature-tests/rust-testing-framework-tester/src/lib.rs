@@ -44,13 +44,13 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
     #[endpoint]
     fn get_moa_balance(&self) -> BigUint {
         self.blockchain()
-            .get_sc_balance(&EgldOrDctTokenIdentifier::moa(), 0)
+            .get_sc_balance(&MoaOrDctTokenIdentifier::moa(), 0)
     }
 
     #[endpoint]
     fn get_dct_balance(&self, token_id: TokenIdentifier, nonce: u64) -> BigUint {
         self.blockchain()
-            .get_sc_balance(&EgldOrDctTokenIdentifier::dct(token_id), nonce)
+            .get_sc_balance(&MoaOrDctTokenIdentifier::dct(token_id), nonce)
     }
 
     #[payable("MOA")]
@@ -66,7 +66,7 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
         let payment_amount = &*self.call_value().moa_value() / 2u32;
         self.send().direct(
             &caller,
-            &EgldOrDctTokenIdentifier::moa(),
+            &MoaOrDctTokenIdentifier::moa(),
             0,
             &payment_amount,
         );

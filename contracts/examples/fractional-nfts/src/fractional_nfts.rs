@@ -152,7 +152,7 @@ mod nft_marketplace_proxy {
         fn claim_tokens(
             &self,
             claim_destination: &ManagedAddress,
-            token_id: &EgldOrDctTokenIdentifier,
+            token_id: &MoaOrDctTokenIdentifier,
             token_nonce: u64,
         ) -> MultiValue2<BigUint, ManagedVec<DctTokenPayment>>;
     }

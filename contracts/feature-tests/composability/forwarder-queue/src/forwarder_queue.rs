@@ -19,7 +19,7 @@ pub struct QueuedCall<M: ManagedTypeApi> {
     pub gas_limit: u64,
     pub endpoint_name: ManagedBuffer<M>,
     pub args: ManagedArgBuffer<M>,
-    pub payments: EgldOrMultiDctPayment<M>,
+    pub payments: MoaOrMultiDctPayment<M>,
 }
 
 /// Testing multiple calls per transaction.
@@ -86,7 +86,7 @@ pub trait ForwarderQueue {
         let mut payment = ManagedVec::new();
         payment.push(DctTokenPayment::new(token, 0, amount));
 
-        let payments = EgldOrMultiDctPayment::MultiDct(payment);
+        let payments = MoaOrMultiDctPayment::MultiDct(payment);
 
         let call_type = QueuedCallType::Promise;
         self.queued_calls().push_back(QueuedCall {
@@ -124,10 +124,10 @@ pub trait ForwarderQueue {
         let payments = self.call_value().any_payment();
 
         match &payments {
-            EgldOrMultiDctPayment::Moa(moa_value) => {
+            MoaOrMultiDctPayment::Moa(moa_value) => {
                 self.add_queued_call_moa_event(&call_type, &to, &endpoint_name, moa_value);
             },
-            EgldOrMultiDctPayment::MultiDct(dct_payments) => {
+            MoaOrMultiDctPayment::MultiDct(dct_payments) => {
                 self.add_queued_call_dct_event(
                     &call_type,
                     &to,
@@ -154,7 +154,7 @@ pub trait ForwarderQueue {
             let call = node.clone().into_value();
 
             match &call.payments {
-                EgldOrMultiDctPayment::Moa(moa_value) => {
+                MoaOrMultiDctPayment::Moa(moa_value) => {
                     self.forward_queued_call_moa_event(
                         &call.call_type,
                         &call.to,
@@ -162,7 +162,7 @@ pub trait ForwarderQueue {
                         moa_value,
                     );
                 },
-                EgldOrMultiDctPayment::MultiDct(dct_payments) => {
+                MoaOrMultiDctPayment::MultiDct(dct_payments) => {
                     self.forward_queued_call_dct_event(
                         &call.call_type,
                         &call.to,
