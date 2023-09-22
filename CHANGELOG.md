@@ -18,7 +18,7 @@ They are:
     - `dharitri-sc-wasm-adapter`
     - `dharitri-sc-modules` - *standard contract modules*
 	- `dharitri-price-aggregator-sc` - *core contract*
-	- `dharitri-wegld-swap-sc` - *core contract*
+	- `dharitri-wmoa-swap-sc` - *core contract*
 - `dharitri-sc-codec`, in short `codec`, the serializer/deserializer, 2 crates:
 	- `dharitri-sc-codec`
 	- `dharitri-sc-codec-derive`
@@ -235,7 +235,7 @@ They are:
 ## [dharitr-wasm 0.34.1] - 2022-07-19
 - `#[only_admin]` annotation
 - Safer BigUint/BigInt conversions
-- Added and published `price-aggregator` and `wegld-swap` core contracts.
+- Added and published `price-aggregator` and `wmoa-swap` core contracts.
 
 ## [dharitr-wasm 0.34.0, dharitr-codec 0.12.0, mandos 0.16.0, dharitr-interact-snippets 0.1.0] - 2022-07-08
 - Major refactor of the mandos-rs infrastructure.

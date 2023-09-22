@@ -2,7 +2,7 @@ mod multisig_interact_cli;
 mod multisig_interact_config;
 mod multisig_interact_nfts;
 mod multisig_interact_state;
-mod multisig_interact_wegld;
+mod multisig_interact_wmoa;
 
 use clap::Parser;
 use multisig::{
@@ -83,7 +83,7 @@ async fn main() {
             multisig_interact.unwrap_moa().await;
         },
         Some(multisig_interact_cli::InteractCliCommand::WMoaSwapFull) => {
-            multisig_interact.wegld_swap_full().await;
+            multisig_interact.wmoa_swap_full().await;
         },
         Some(multisig_interact_cli::InteractCliCommand::WrapMoa) => {
             multisig_interact.wrap_moa().await;
@@ -153,7 +153,7 @@ impl MultisigInteract {
             self.interactor.post_runners.run_scenario(&scenario);
         }
 
-        self.wegld_swap_set_state().await;
+        self.wmoa_swap_set_state().await;
     }
 
     async fn deploy(&mut self) {

@@ -36,7 +36,7 @@ build_and_copy_with_scenarios() {
 # if you still want to build all:
 # ./build-wasm.sh
 
-build_and_copy_with_scenarios ./contracts/core/wegld-swap $VM_REPO_PATH/test/wegld-swap
+build_and_copy_with_scenarios ./contracts/core/wmoa-swap $VM_REPO_PATH/test/wmoa-swap
 build_and_copy_with_scenarios ./contracts/examples/adder $VM_REPO_PATH/test/adder
 build_and_copy_with_scenarios ./contracts/examples/crowdfunding-dct $VM_REPO_PATH/test/crowdfunding-dct
 build_and_copy_with_scenarios ./contracts/examples/digital-cash $VM_REPO_PATH/test/digital-cash

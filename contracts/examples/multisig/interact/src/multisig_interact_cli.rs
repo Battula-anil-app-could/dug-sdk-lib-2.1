@@ -45,8 +45,8 @@ pub enum InteractCliCommand {
     #[command(name = "unwrap-moa", about = "Unwrap MOA")]
     UnwrapMoa,
     #[command(
-        name = "wegld-swap-full",
-        about = "Deploy and swap WEGLD with multisig"
+        name = "wmoa-swap-full",
+        about = "Deploy and swap WMOA with multisig"
     )]
     WMoaSwapFull,
     #[command(name = "wrap-moa", about = "Wrap MOA")]

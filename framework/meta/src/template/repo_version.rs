@@ -1,3 +1,4 @@
+#[derive(Debug)] 
 pub enum RepoVersion {
     Master,
     Tag(String),
@@ -7,10 +8,10 @@ impl RepoVersion {
     pub fn url(&self) -> String {
         match self {
             RepoVersion::Master => {
-                "https://github.com/dharitri/mx-sdk-rs/archive/refs/heads/master.zip".to_string()
+                "https://github.com/dharitri-org/mx-sdk-rs/archive/refs/heads/master.zip".to_string()
             },
             RepoVersion::Tag(tag) => {
-                format!("https://github.com/dharitri/mx-sdk-rs/archive/refs/tags/v{tag}.zip")
+                format!("https://github.com/dharitri-org/mx-sdk-rs/archive/refs/tags/v{tag}.zip")
             },
         }
     }

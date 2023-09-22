@@ -14,13 +14,13 @@ use dharitri_sc_snippets::{
 
 use super::*;
 
-const WEGLD_SWAP_SC_BECH32: &str = "erd1qqqqqqqqqqqqqpgqcy2wua5cq59y6sxqj2ka3scayh5e5ms7cthqht8xtp";
-const WEGLD_TOKEN_IDENTIFIER: &str = "WEGLD-6cf38e";
+const WMOA_SWAP_SC_BECH32: &str = "erd1qqqqqqqqqqqqqpgqcy2wua5cq59y6sxqj2ka3scayh5e5ms7cthqht8xtp";
+const WMOA_TOKEN_IDENTIFIER: &str = "WMOA-6cf38e";
 const WRAP_AMOUNT: u64 = 50000000000000000; // 0.05 MOA
-const UNWRAP_AMOUNT: u64 = 25000000000000000; // 0.025 WEGLD
+const UNWRAP_AMOUNT: u64 = 25000000000000000; // 0.025 WMOA
 
 impl MultisigInteract {
-    pub async fn wegld_swap_full(&mut self) {
+    pub async fn wmoa_swap_full(&mut self) {
         self.deploy().await;
         self.feed_contract_moa().await;
         self.wrap_moa().await;
@@ -44,10 +44,10 @@ impl MultisigInteract {
         self.perform_action(action_id, "15,000,000").await;
     }
 
-    pub async fn wegld_swap_set_state(&mut self) {
+    pub async fn wmoa_swap_set_state(&mut self) {
         let scenario_raw = retrieve_account_as_scenario_set_state(
             Config::load_config().gateway().to_string(),
-            WEGLD_SWAP_SC_BECH32.to_string(),
+            WMOA_SWAP_SC_BECH32.to_string(),
             true,
         )
         .await;
@@ -64,7 +64,7 @@ impl MultisigInteract {
             .sc_call_get_result(
                 ScCallStep::new()
                     .call(self.state.multisig().propose_async_call(
-                        bech32::decode(WEGLD_SWAP_SC_BECH32),
+                        bech32::decode(WMOA_SWAP_SC_BECH32),
                         WRAP_AMOUNT,
                         "wrapMoa".to_string(),
                         MultiValueEncoded::new(),
@@ -82,11 +82,11 @@ impl MultisigInteract {
 
     async fn propose_unwrap_moa(&mut self) -> usize {
         let contract_call = ContractCallNoPayment::<StaticApi, ()>::new(
-            bech32::decode(WEGLD_SWAP_SC_BECH32).into(),
+            bech32::decode(WMOA_SWAP_SC_BECH32).into(),
             "unwrapMoa",
         )
         .with_dct_transfer(DctTokenPayment::new(
-            TokenIdentifier::from(WEGLD_TOKEN_IDENTIFIER),
+            TokenIdentifier::from(WMOA_TOKEN_IDENTIFIER),
             0u64,
             UNWRAP_AMOUNT.into(),
         ))

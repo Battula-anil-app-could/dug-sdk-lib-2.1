@@ -36,7 +36,7 @@ upgrade() {
 
 issueWrappedMoa() {
     local TOKEN_DISPLAY_NAME=0x5772617070656445676c64  # "WrappedMoa"
-    local TOKEN_TICKER=0x5745474c44  # "WEGLD"
+    local TOKEN_TICKER=0x5745474c44  # "WMOA"
     local INITIAL_SUPPLY=0x01 # 1
     local NR_DECIMALS=0x12 # 18
     local CAN_ADD_SPECIAL_ROLES=0x63616e4164645370656369616c526f6c6573 # "canAddSpecialRoles"
@@ -81,7 +81,7 @@ unwrapMoaBob() {
 getWrappedMoaTokenIdentifier() {
     local QUERY_OUTPUT=$(mxpy --verbose contract query ${ADDRESS} --function="getWrappedMoaTokenId" --proxy=${PROXY})
     TOKEN_IDENTIFIER=0x$(jq -r '.[0] .hex' <<< "${QUERY_OUTPUT}")
-    echo "Wrapped eGLD token identifier: ${TOKEN_IDENTIFIER}"
+    echo "Wrapped MOA token identifier: ${TOKEN_IDENTIFIER}"
 }
 
 getLockedMoaBalance() {

@@ -48,7 +48,7 @@ pub trait MoaDctSwap: dharitri_sc_modules::pause::PauseModule {
         self.send()
             .dct_local_burn(&wrapped_moa_token_id, 0, &payment_amount);
 
-        // 1 wrapped eGLD = 1 eGLD, so we pay back the same amount
+        // 1 wrapped MOA = 1 MOA, so we pay back the same amount
         let caller = self.blockchain().get_caller();
         self.send().direct_moa(&caller, &payment_amount);
     }

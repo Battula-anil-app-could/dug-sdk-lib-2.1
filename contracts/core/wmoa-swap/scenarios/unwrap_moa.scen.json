@@ -62,7 +62,7 @@
                     "storage": {
                         "str:wrappedMoaTokenId": "str:MOA-abcdef"
                     },
-                    "code": "file:../output/dharitri-wegld-swap-sc.wasm"
+                    "code": "file:../output/dharitri-wmoa-swap-sc.wasm"
                 }
             }
         }

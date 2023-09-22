@@ -42,7 +42,7 @@
 # `git tag -s -a vX.X.X -m 'very short description of the release'`
 # `git push origin vX.X.X`
 #
-# 10. Go to https://github.com/dharitri/mx-sdk-rs/tags
+# 10. Go to https://github.com/dharitri-org/mx-sdk-rs/tags
 # Click on the new tag.
 # Click `Create release from tag`.
 # The title should be the released crates and versions, same as in the changelog and the commit message.
@@ -111,6 +111,6 @@ cd contracts/core/price-aggregator
 cargo publish || return 1
 cd ../../..
 
-cd contracts/core/wegld-swap
+cd contracts/core/wmoa-swap
 cargo publish || return 1
 cd ../../..

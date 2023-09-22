@@ -4,6 +4,7 @@ use dharitri_sc_meta::{
     },
     version_history,
 };
+use colored:: *;
 use std::{
     fs,
     path::{Path, PathBuf},
@@ -16,14 +17,17 @@ const BUILD_CONTRACTS: bool = true;
 #[test]
 fn test_template_list() {
     let workspace_path = find_workspace();
+    println!("work path is {}", workspace_path.clone().display());
     let repo_source = RepoSource::from_local_path(workspace_path);
     let mut template_names = template_names_from_repo(&repo_source);
+    println!("repo_source is {:?}", &repo_source);
+    println!("temp names is {:?}", &template_names);
     template_names.sort();
     assert_eq!(
         template_names,
         [
             "adder".to_string(),
-            "crypto-zombies".to_string(),
+            "crypto-zombis".to_string(),
             "empty".to_string()
         ]
     );

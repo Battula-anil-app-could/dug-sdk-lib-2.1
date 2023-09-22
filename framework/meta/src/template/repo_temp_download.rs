@@ -7,7 +7,7 @@ use std::{
 use super::RepoVersion;
 
 const ZIP_NAME: &str = "mx-sdk-rs-download.zip";
-
+#[derive(Debug)] 
 pub struct RepoTempDownload {
     pub version: RepoVersion,
     pub temp_dir_path: PathBuf,

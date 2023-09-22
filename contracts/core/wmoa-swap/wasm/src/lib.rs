@@ -17,7 +17,7 @@ dharitri_sc_wasm_adapter::allocator!();
 dharitri_sc_wasm_adapter::panic_handler!();
 
 dharitri_sc_wasm_adapter::endpoints! {
-    dharitri_wegld_swap_sc
+    dharitri_wmoa_swap_sc
     (
         init => init
         wrapMoa => wrap_moa

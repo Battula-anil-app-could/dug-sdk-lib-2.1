@@ -1,14 +1,17 @@
 use std::{
+    fmt,
     fs,
     path::{Path, PathBuf},
 };
 
 use super::{RepoTempDownload, RepoVersion};
-
+#[derive(Debug)]
 pub enum RepoSource {
     Downloaded(RepoTempDownload),
     LocalPath(PathBuf),
 }
+
+
 
 impl RepoSource {
     pub async fn download_from_github(version: RepoVersion, temp_dir_path: PathBuf) -> Self {

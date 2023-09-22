@@ -1,5 +1,5 @@
 [package]
-name = "dharitri-wegld-swap-sc-wasm"
+name = "dharitri-wmoa-swap-sc-wasm"
 version = "0.0.0"
 authors = [ "Dorin Iancu <dorin.iancu@dharitri.com>",]
 edition = "2021"
@@ -20,7 +20,7 @@ lto = true
 debug = false
 panic = "abort"
 
-[dependencies.dharitri-wegld-swap-sc]
+[dependencies.dharitri-wmoa-swap-sc]
 path = ".."
 
 [dependencies.dharitri-sc-wasm-adapter]
